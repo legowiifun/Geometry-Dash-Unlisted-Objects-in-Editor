@@ -97,8 +97,7 @@ class $modify(EditButtonBar) {
 				// old quarter-blocks, replaced with colorable one
 				addObj(195,types::nonReplicable);
 				addObj(196,types::nonReplicable);
-				// old grey stripes going in,
-				// replaced with version without outlines
+				// old grey stripes, replaced with version without outlines
 				addObj(160,types::stable);
 				addObj(161,types::stable);
 				addObj(162,types::stable);
@@ -110,7 +109,7 @@ class $modify(EditButtonBar) {
 				addObj(168,types::stable);
 				addObj(169,types::stable);
 				addObj(193,types::stable);
-				// old colored grid blocks, unknown why replaced
+				// old colored grid blocks, replaced with versions without outlines
 				addObj(247,types::stable);
 				addObj(248,types::stable);
 				addObj(249,types::stable);
@@ -132,7 +131,7 @@ class $modify(EditButtonBar) {
 				addObj(61,types::stable);
 				addObj(243,types::stable);
 				addObj(244,types::stable);
-				// old fake spikes, unknown why replaced
+				// old fake spikes, replaced with colorable ones
 				addObj(191,types::stable);
 				addObj(198,types::stable);
 				addObj(199,types::stable);
@@ -147,8 +146,7 @@ class $modify(EditButtonBar) {
 				// old quarter-blocks, replaced with colorable one
 				addObj(195,types::nonReplicable);
 				addObj(196,types::nonReplicable);
-				// old grey stripes going in, 
-				// replaced with version without outlines
+				// old grey stripes, replaced with version without outlines
 				addObj(160,types::stable);
 				addObj(161,types::stable);
 				addObj(162,types::stable);
@@ -160,7 +158,7 @@ class $modify(EditButtonBar) {
 				addObj(168,types::stable);
 				addObj(169,types::stable);
 				addObj(193,types::stable);
-				// old colored grid blocks, unknown why replaced
+				// old colored grid blocks, replaced with version without outlines
 				addObj(247,types::stable);
 				addObj(248,types::stable);
 				addObj(249,types::stable);
@@ -190,7 +188,7 @@ class $modify(EditButtonBar) {
 				addObj(98,types::stable);
 				break;
 			case tabs::slopes:
-				// old grey grid slopes, unknown why replaced
+				// old grey grid slopes, replaced to add corner pieces directly into slopes
 				addObj(289,types::stable);
 				addObj(291,types::stable);
 				break;
