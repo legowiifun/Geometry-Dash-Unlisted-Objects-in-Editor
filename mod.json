@@ -1,6 +1,6 @@
 {
-	"geode": "2.0.0-beta.12",
-	"version": "v1.0.0",
+	"geode": "2.0.0",
+	"version": "v1.1.0",
 	"gd": "2.204",
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
