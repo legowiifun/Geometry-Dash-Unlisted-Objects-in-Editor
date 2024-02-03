@@ -91,6 +91,8 @@ class $modify(EditButtonBar) {
 				if(buildTab) {
 				// old half-slab, replaced with colorable one
 				addObj(40,types::nonReplicable);
+				addObj(369,types::stable);
+				addObj(370,types::stable);
 				// old quarter-blocks, replaced with colorable one
 				addObj(195,types::nonReplicable);
 				addObj(196,types::nonReplicable);
@@ -107,6 +109,7 @@ class $modify(EditButtonBar) {
 				addObj(168,types::stable);
 				addObj(169,types::stable);
 				addObj(193,types::stable);
+				addObj(737,types::stable);
 				// old colored grid blocks, unknown why replaced
 				addObj(247,types::stable);
 				addObj(248,types::stable);
@@ -116,6 +119,8 @@ class $modify(EditButtonBar) {
 				addObj(252,types::stable);
 				addObj(253,types::stable);
 				addObj(254,types::stable);
+				// solid startPos
+				addObj(34,types::nonReplicable);
 				}
 				break;
 			case tabs::Collectables:
@@ -129,14 +134,47 @@ class $modify(EditButtonBar) {
 				addObj(61,types::stable);
 				addObj(243,types::stable);
 				addObj(244,types::stable);
+				addObj(366,types::stable);
+				addObj(367,types::stable);
+				addObj(368,types::stable);
 				// old fake spikes, unknown why replaced
 				addObj(191,types::stable);
 				addObj(198,types::stable);
 				addObj(199,types::stable);
+				addObj(393, types::stable);
+				// old spiky spikes, replaced with colorable one
+				addObj(363,types::stable);
+				addObj(364,types::stable);
+				addObj(365,types::stable);
+				// old bigger-curve spikes, replaced with colorable one
+				addObj(446,types::stable);
+				addObj(447,types::stable);
+				// old block-on-top spikes, replaced with colorable one
+				addObj(667,types::stable);
+				addObj(989,types::stable);
+				addObj(991,types::stable);
+				addObj(720,types::stable);
+				// old spike-on-top spikes, replaced with colorable ones
+				addObj(421,types::stable);
+				addObj(422,types::stable);
+				addObj(768,types::stable);
 				break;
 			case tabs::OtherDeco:
+				// old version of circle, unknown why replaced
+				addObj(725,types::stable);
+				// old bush versions, unknown why replaced
+				addObj(461,types::stable);
+				addObj(462,types::stable);
+				addObj(463,types::stable);
+				addObj(464,types::stable);
+				addObj(465,types::stable);
+				addObj(466,types::stable);
 				break;
 			case tabs::outlines:
+				// alternate basic slope outlines
+				// fit with blocks better
+				addObj(665,types::nonReplicable);
+				addObj(666,types::nonReplicable);
 				break;
 			case tabs::Pixels:
 				/*
@@ -155,17 +193,56 @@ class $modify(EditButtonBar) {
 				addObj(88,types::stable);
 				addObj(89,types::stable);
 				addObj(98,types::stable);
+				addObj(397,types::stable);
+				addObj(398,types::stable);
+				addObj(399,types::stable);
 				break;
 			case tabs::slopes:
 				// old grey grid slopes, unknown why replaced
 				addObj(289,types::stable);
 				addObj(291,types::stable);
+				// other variants of slopes with outlines
+				addObj(710,types::stable);
+				addObj(711,types::stable);
+				addObj(712,types::stable);
+				addObj(726,types::stable);
+				addObj(727,types::stable);
+				addObj(728,types::stable);
+				addObj(729,types::stable);
+				addObj(321,types::stable);
+				addObj(323,types::stable);
+				addObj(331,types::stable);
+				addObj(333,types::stable);
+				addObj(343,types::stable);
+				addObj(345,types::stable);
+				addObj(353,types::stable);
+				addObj(355,types::stable);
+				addObj(349,types::stable);
+				addObj(351,types::stable);
+				addObj(337,types::stable);
+				addObj(339,types::stable);
+				addObj(483,types::stable);
+				addObj(484,types::stable);
+				addObj(492,types::stable);
+				addObj(493,types::stable);
+				addObj(651,types::stable);
+				addObj(652,types::stable);
+				addObj(886,types::stable);
+				addObj(887,types::stable);
 				break;
 			case tabs::SpriteDeco:
-				// solid startPos
-				addObj(34,types::nonReplicable);
 				break;
 			case tabs::ThreeDL:
+				// 3D lines with hitboxes
+				addObj(1561,types::nonReplicable);
+				addObj(1562,types::nonReplicable);
+				addObj(1563,types::nonReplicable);
+				addObj(1564,types::nonReplicable);
+				addObj(1565,types::nonReplicable);
+				addObj(1566,types::nonReplicable);
+				addObj(1567,types::nonReplicable);
+				addObj(1568,types::nonReplicable);
+				addObj(1569,types::nonReplicable);
 				break;
 			case tabs::Triggers:
 				// old color Triggers (do not work as fas as I know)
