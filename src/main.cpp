@@ -5,7 +5,6 @@
 #include <Geode/loader/SettingEvent.hpp>
 #include <Geode/modify/EditButtonBar.hpp>
 #include <Geode/modify/EditorUI.hpp>
-
 /**
  * Brings cocos2d and all Geode namespaces 
  * to the current scope.
@@ -41,8 +40,6 @@ auto active = Mod::get()->getSettingValue<bool>("activate");
 auto unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
 // auto noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
 auto noUnstable=true;
-// personal, due to an annoying bug that I do not know how to fix
-bool bugFixed = false;
 
 $execute{
 	listenForSettingChanges("activate", +[](bool value) {
@@ -81,17 +78,17 @@ void addObj(int objId, enum types necessary) {
 // modify the EditButtonBar
 class $modify(EditButtonBar) {
 	bool init(cocos2d::CCArray* objects, 
-		cocos2d::CCPoint p1, int id, bool p3, int p4, int p5) {
+		cocos2d::CCPoint p1, int id, bool buildTab, int p4, int p5) {
 		if(!active) {
-			return EditButtonBar::init(objects,p1, id,p3,p4,p5);
-			}
+			return EditButtonBar::init(objects,p1, id,buildTab,p4,p5);
+		}
 		objArr=objects;
 		// id==tab to put in
 		switch(id) {
 			case tabs::AnimatedObjs:
 				break;
 			case tabs::blocks:
-				if(bugFixed) {
+				if(buildTab) {
 				// old half-slab, replaced with colorable one
 				addObj(40,types::nonReplicable);
 				// old quarter-blocks, replaced with colorable one
@@ -140,36 +137,6 @@ class $modify(EditButtonBar) {
 			case tabs::OtherDeco:
 				break;
 			case tabs::outlines:
-				// only here so they don't leak into edit tab
-				if(!bugFixed) {
-				// old half-slab, replaced with colorable one
-				addObj(40,types::nonReplicable);
-				// old quarter-blocks, replaced with colorable one
-				addObj(195,types::nonReplicable);
-				addObj(196,types::nonReplicable);
-				// old grey stripes going in, 
-				// replaced with version without outlines
-				addObj(160,types::stable);
-				addObj(161,types::stable);
-				addObj(162,types::stable);
-				addObj(163,types::stable);
-				addObj(164,types::stable);
-				addObj(165,types::stable);
-				addObj(166,types::stable);
-				addObj(167,types::stable);
-				addObj(168,types::stable);
-				addObj(169,types::stable);
-				addObj(193,types::stable);
-				// old colored grid blocks, unknown why replaced
-				addObj(247,types::stable);
-				addObj(248,types::stable);
-				addObj(249,types::stable);
-				addObj(250,types::stable);
-				addObj(251,types::stable);
-				addObj(252,types::stable);
-				addObj(253,types::stable);
-				addObj(254,types::stable);
-				}
 				break;
 			case tabs::Pixels:
 				/*
@@ -211,7 +178,7 @@ class $modify(EditButtonBar) {
 				addObj(915,types::unstable);
 				break;
 		}
-		return EditButtonBar::init(objects,p1,id,p3,p4,p5);
+		return EditButtonBar::init(objects,p1,id,buildTab,p4,p5);
 	}
 };
 
