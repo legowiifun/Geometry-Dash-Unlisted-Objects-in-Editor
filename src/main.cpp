@@ -124,6 +124,7 @@ class $modify(EditButtonBar) {
 				}
 				break;
 			case tabs::Collectables:
+				addObj(142,types::unstable);
 				break;
 			case tabs::GameplayModifiers:
 				break;
