@@ -121,6 +121,8 @@ class $modify(EditButtonBar) {
 				addObj(254,types::stable);
 				// solid startPos
 				addObj(34,types::nonReplicable);
+				// other weird block (looks like it uses a weird mishmash of textures)
+				addObj(3800,types::nonReplicable);
 				}
 				break;
 			case tabs::Collectables:
