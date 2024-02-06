@@ -1,5 +1,5 @@
 # v1.2.1
- * Added another unlisted object
+ * Added another unlisted object: A weird looking block that uses a mishmash of textures
 
 # v1.2.0
  * Added more unlisted objects
