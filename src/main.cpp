@@ -255,6 +255,8 @@ class $modify(EditButtonBar) {
 				addObj(105,types::unstable);
 				addObj(744,types::unstable);
 				addObj(915,types::unstable);
+				// early version of the end trigger. It does not work at all anymore. 
+				addObj(1931, types::stable);
 				break;
 		}
 		return EditButtonBar::init(objects,p1,id,buildTab,p4,p5);
