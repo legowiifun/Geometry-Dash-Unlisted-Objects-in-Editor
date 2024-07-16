@@ -1,3 +1,6 @@
+# v1.2.3
+ * Compatibility with 2.206. Complete Rewrite. 
+
 # v1.2.2
  * Added another unlisted object: An early version of the end trigger that does not work
 

@@ -1,7 +1,7 @@
 {
-	"geode": "2.0.0-beta.16",
-	"version": "v1.2.2",
-	"gd": "2.204",
+	"geode": "3.2.0",
+	"version": "v1.2.3",
+	"gd": { "win": "2.206" },
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
 	"developer": "legowiifun",
@@ -19,6 +19,7 @@
 			"type":"bool",
 			"default": false
 		}
-	}, 
-	"repository": "https://github.com/legowiifun/Geometry-Dash-Unlisted-Objects-in-Editor"
+	},
+	"repository": "https://github.com/legowiifun/Geometry-Dash-Unlisted-Objects-in-Editor", 
+	"tags": ["editor","offline","enhancement","interface"]
 }
