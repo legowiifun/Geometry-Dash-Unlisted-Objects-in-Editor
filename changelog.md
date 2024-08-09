@@ -1,3 +1,12 @@
+# v1.2.6
+ * Various Improvements
+
+# v1.2.5
+ * Experimental Android Release
+
+# v1.2.4
+ * Added node ids as a dependency
+ * Bumped Geode Version up
 # v1.2.3
  * Compatibility with 2.206. Complete Rewrite. 
 
