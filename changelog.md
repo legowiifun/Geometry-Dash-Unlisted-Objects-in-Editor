@@ -1,3 +1,8 @@
+# v1.2.7
+ * Added new slopes to the slopes tab
+ * Added new block designs to the blocks tab
+ * Added another unlisted trigger: A trigger that looks like a state block, but does nothing
+
 # v1.2.6
  * Various Improvements
 
