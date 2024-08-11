@@ -98,6 +98,10 @@ class $modify(EditButtonBar) {
 			addObj(252, types::stable, items);
 			addObj(253, types::stable, items);
 			addObj(254, types::stable, items);
+			// unique variation of existing blocks, placed by Build Helper
+			for (int i = 2808; i <= 2837; i++) {
+				addObj(i, types::stable, items);
+			}
 			// solid startPos
 			addObj(34, types::nonReplicable, items);
 			// other weird block (looks like it uses a weird mishmash of textures)
@@ -141,6 +145,13 @@ class $modify(EditButtonBar) {
 			addObj(652, types::stable, items);
 			addObj(886, types::stable, items);
 			addObj(887, types::stable, items);
+			addObj(299, types::stable, items);
+			addObj(301, types::stable, items);
+			addObj(309, types::stable, items);
+			addObj(311, types::stable, items);
+			addObj(315, types::stable, items);
+			addObj(317, types::stable, items);
+			addObj(709, types::stable, items);
 		}
 		else if (this->getID() == "hazard-tab-bar") {
 			// old ground spike, replaced with colorable one
@@ -242,6 +253,8 @@ class $modify(EditButtonBar) {
 			addObj(915, types::unstable, items);
 			// early version of the end trigger. It does not work at all anymore. 
 			addObj(1931, types::stable, items);
+			// State block with no number?
+			addObj(3655, types::stable, items);
 		}
 		EditButtonBar::loadFromItems(items, r, c, unkBool);
 	}
