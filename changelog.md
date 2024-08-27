@@ -1,3 +1,8 @@
+# v1.3.0
+ * Uses alphalaneous.editortab_api to add objects to their own tabs instead of being in the main area
+ * Changed the activate option to instead remove objects from the main tab
+ * Fixed the duplication bug when alphalaneous.editortab_api is enabled
+
 # v1.2.7
  * Added new slopes to the slopes tab
  * Added new block designs to the blocks tab
