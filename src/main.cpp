@@ -82,7 +82,7 @@ class $modify(EditorUI) {
 		if (!EditorUI::init(layer)) { return false; }
 		if (separateTab&&active) {
 			// add the new blocks tab
-			EditorTabs::get()->addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old half-slab, replaced with colorable one
@@ -127,7 +127,7 @@ class $modify(EditorUI) {
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
 			// add the new Slopes tab
-			EditorTabs::get()->addTab(this,TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this,TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old grey grid slopes, unknown why replaced
@@ -174,7 +174,7 @@ class $modify(EditorUI) {
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
 			// add the tab with 3D lines and better slope outlines
-			EditorTabs::get()->addTab(this,TabType::BUILD, "NewOutlines"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this,TabType::BUILD, "NewOutlines"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// alternate basic slope outlines
@@ -200,7 +200,7 @@ class $modify(EditorUI) {
 			});
 			
 			// add a tab with more spikes and sawblades
-			EditorTabs::get()->addTab(this, TabType::BUILD, "NewHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "NewHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old ground spike, replaced with colorable one
@@ -249,7 +249,7 @@ class $modify(EditorUI) {
 			});
 			// if unstable objects are available, add the tab with way too many pixel objects
 			if (!noUnstable) {
-				EditorTabs::get()->addTab(this, TabType::BUILD, "NewPixels"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+				EditorTabs::addTab(this, TabType::BUILD, "NewPixels"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 					auto items = CCArray::create();
 
 					/*
@@ -271,7 +271,7 @@ class $modify(EditorUI) {
 				});
 			}
 			// add the tab with new deco objects
-			EditorTabs::get()->addTab(this, TabType::BUILD, "newDeco"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "newDeco"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old version of circle, unknown why replaced
@@ -291,7 +291,7 @@ class $modify(EditorUI) {
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
 			// add the tab with unusual objects
-			EditorTabs::get()->addTab(this, TabType::BUILD, "UnusalObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "UnusalObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// solid startPos
@@ -306,7 +306,7 @@ class $modify(EditorUI) {
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
 			// add the tab with more triggers
-			EditorTabs::get()->addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old color Triggers (do not work as fas as I know)

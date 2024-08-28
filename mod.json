@@ -1,6 +1,6 @@
 {
 	"geode": "3.4.0",
-	"version": "v1.3.1",
+	"version": "v1.3.2",
 	"gd": { "win": "2.206",  "android": "2.206"},
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
@@ -35,7 +35,7 @@
 	"dependencies": [
 		{
 			"id": "alphalaneous.editortab_api",
-			"version": ">=1.0.0-alpha.11",
+			"version": ">=1.0.0-alpha.12",
 			"importance": "required"
 		},
 		{
