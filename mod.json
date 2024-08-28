@@ -1,12 +1,18 @@
 {
 	"geode": "3.4.0",
-	"version": "v1.3.0",
+	"version": "v1.3.1",
 	"gd": { "win": "2.206",  "android": "2.206"},
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
 	"developer": "legowiifun",
 	"description": "Adds unlisted objects to the level editor.",
 	"settings": {
+		"activate": {
+			"name": "Activate",
+			"description": "Activate or deactivate the mod without requiring a restart of Geometry Dash",
+			"type": "bool",
+			"default": true
+		},
 		"doNotInclude": {
 			"name": "Do not include unecessary ones",
 			"description": "Only adds objects that cannot be replicated using listed objects",
@@ -29,7 +35,7 @@
 	"dependencies": [
 		{
 			"id": "alphalaneous.editortab_api",
-			"version": ">=1.0.0-alpha.10",
+			"version": ">=1.0.0-alpha.11",
 			"importance": "required"
 		},
 		{

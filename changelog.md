@@ -1,3 +1,7 @@
+# v1.3.1
+ * Bumped up the minimum required version of alphalaneous.editortab_api
+ * Used the recent changes to this api to add a way to remove the new tabs and restore the activate option
+
 # v1.3.0
  * Uses alphalaneous.editortab_api to add objects to their own tabs instead of being in the main area
  * Changed the activate option to instead remove objects from the main tab
