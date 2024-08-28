@@ -232,7 +232,7 @@ CCArray* addObjectsForTab(EditorUI* ui, Tab tab, CCArray* items = nullptr) {
 class $modify(EditorUI) {
 
 	bool init(LevelEditorLayer* layer) {
-		
+
 		if (!EditorUI::init(layer)) return false; 
 
 		bool separateTab = Mod::get()->getSettingValue<bool>("separateTab");
@@ -256,7 +256,7 @@ class $modify(EditorUI) {
 				EditorTabUtils::setTabIcons(toggler, spr, spr);
 				return EditorTabUtils::createEditButtonBar(addObjectsForTab(ui, Tab::SLOPES), ui);
 			});
-
+			
 			// add the tab with 3D lines and better slope outlines
 			EditorTabs::addTab(this,TabType::BUILD, "newOutlines"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler) -> CCNode* {
 				auto spr = CCSprite::create("3DLabel.png"_spr);
@@ -265,7 +265,7 @@ class $modify(EditorUI) {
 				return EditorTabUtils::createEditButtonBar(addObjectsForTab(ui, Tab::TDLINE, addObjectsForTab(ui, Tab::OUTLINE)), ui);
 			});
 			
-			// add a tab with more spikes and sawblades
+
 			EditorTabs::addTab(this, TabType::BUILD, "newHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler) -> CCNode* {
 				auto spr = CCSprite::create("spikeLabel.png"_spr);
 				spr->setScale(0.4f);
@@ -324,10 +324,8 @@ void addObj(EditorUI* self, int objId, enum ObjTypes type, cocos2d::CCArray* oAr
 
 	if (!noUnstable || (type == ObjTypes::STABLE && !unecessary)|| type == ObjTypes::NON_REPLICABLE) {
 		//first argument is obj id, 2nd is always 4
-		log::info("id: {}", objId);
 		auto obj = self->getCreateBtn(objId, 4);
 		if (obj && oArr->indexOfObject(obj) == UINT_MAX){
-			log::info("here");
 			oArr->addObject(obj);
 		}
 	}

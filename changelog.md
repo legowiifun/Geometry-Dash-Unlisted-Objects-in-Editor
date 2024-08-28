@@ -1,3 +1,7 @@
+# v1.3.2
+ * Bumped up the minimum required version of alphalaneous.editortab_api
+ * Made the mod work with the latest version of the API
+
 # v1.3.1
  * Bumped up the minimum required version of alphalaneous.editortab_api
  * Used the recent changes to this api to add a way to remove the new tabs and restore the activate option
