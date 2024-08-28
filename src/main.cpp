@@ -149,8 +149,6 @@ class $modify(EditorUI) {
 				addObj(345, types::stable, items);
 				addObj(353, types::stable, items);
 				addObj(355, types::stable, items);
-				addObj(349, types::stable, items);
-				addObj(351, types::stable, items);
 				addObj(337, types::stable, items);
 				addObj(339, types::stable, items);
 				addObj(483, types::stable, items);
@@ -426,8 +424,6 @@ class $modify(EditButtonBar) {
 			addObj(345, types::stable, items);
 			addObj(353, types::stable, items);
 			addObj(355, types::stable, items);
-			addObj(349, types::stable, items);
-			addObj(351, types::stable, items);
 			addObj(337, types::stable, items);
 			addObj(339, types::stable, items);
 			addObj(483, types::stable, items);
