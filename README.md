@@ -7,4 +7,4 @@ If, for some reason, you want to enable unstable objects, paste this after line 
 			"type": "bool",
 			"default": true
 		},
-, enable the commented lines of code 28, and 41-43 in main.cpp, and comment out or remove line 29. This is nearly guarenteed to cause the game to crash when entering the level editor. 
+, and enable the commented lines of code 73 and 509 in main.cpp. This is nearly guarenteed to cause the game to crash when entering the level editor. 

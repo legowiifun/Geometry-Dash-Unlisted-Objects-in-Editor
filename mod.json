@@ -1,6 +1,6 @@
 {
 	"geode": "3.4.0",
-	"version": "v1.3.2",
+	"version": "v1.3.3",
 	"gd": { "win": "2.206",  "android": "2.206"},
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
@@ -21,9 +21,14 @@
 		},
 		"separateTab": {
 			"name": "Remove objects from normal tabs",
-			"description": "Removes objects from the normal editor tabs so they are not cluttered up",
-			"type": "bool",
-			"default": true
+			"description": "0 means objects are in the normal tabs, 1 means objects are in separate tabs, 2 means the objects are in one single tab",
+			"type": "int",
+			"default": 0,
+			"min": 0,
+			"max": 2,
+			"control": {
+				"arrows": true
+			}
 		}
 	},
 	"resources": {
@@ -35,7 +40,7 @@
 	"dependencies": [
 		{
 			"id": "alphalaneous.editortab_api",
-			"version": ">=1.0.0-alpha.12",
+			"version": ">=1.0.0-alpha.19",
 			"importance": "required"
 		},
 		{

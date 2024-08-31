@@ -1,3 +1,8 @@
+# v1.3.3
+ * Bumped up the minimum required version of alphalaneous.editortab_api
+ * Cleaned up the code. Thanks to Alphalaneous for helping with this
+ * Added a setting to add the unlisted objects to a single tab instead of multiple tabs
+
 # v1.3.2
  * Bumped up the minimum required version of alphalaneous.editortab_api
  * Made the mod work with the latest version of the API

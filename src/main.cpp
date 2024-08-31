@@ -8,6 +8,8 @@
 
 #include <alphalaneous.editortab_api/include/EditorTabs.hpp>
 
+// define a macro for adding an object
+#define ADD_OBJ(id, type) addObj(static_cast<EditorUI*>(ui), id, ObjTypes::type, items)
 
 /**
  * Brings cocos2d and all Geode namespaces 
@@ -16,108 +18,98 @@
 using namespace geode::prelude;
 
 // enum for types of unlisted objs
-enum types {
-	nonReplicable,
-	stable,
-	unstable
+enum class ObjTypes {
+	NON_REPLICABLE,
+	STABLE,
+	UNSTABLE
 };
 
-EditorUI* editorUI=nullptr;
-auto active = Mod::get()->getSettingValue<bool>("activate");
-auto unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
-//auto noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
-auto noUnstable=true;
-auto separateTab = Mod::get()->getSettingValue<bool>("separateTab");
-
-void addObj(int objId, enum types necessary, cocos2d::CCArray* oArr);
-
-$execute{
-	listenForSettingChanges("activate", +[](bool value) {
-		active = value;
-	});
-	listenForSettingChanges("doNotInclude", +[](bool value) {
-		unecessary = value;
-	});
-	//	listenForSettingChanges("removeUnstable", +[](bool value) {
-	//	noUnstable=value;
-	//});
-	listenForSettingChanges("separateTab", +[](bool value) {
-		separateTab = value;
-	});
-}
-
-bool block;
-bool outline;
-bool slope;
-bool hazard;
-bool threeD;
-bool portal;
-bool monster;
-bool pixel;
-bool collectable;
-bool icon;
-bool deco;
-bool sawblade;
-bool trigger;
+void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr);
 
 // gets a reference to the editor UI
-class $modify(EditorUI) {
+class $modify(UnlistedObjectsUI, EditorUI) {
+	struct Fields {
+		// a series of booleans to prevent a bug where objects are duplicated
+		// when they populate in the preexisting EditButtonBars
+		// They are set to false when the EditorUI is loaded, and set to true 
+		// when the tab is loaded for the first time
+		bool block;
+		bool outline;
+		bool slope;
+		bool hazard;
+		bool threeD;
+		bool portal;
+		bool monster;
+		bool pixel;
+		bool collectable;
+		bool icon;
+		bool deco;
+		bool sawblade;
+		bool trigger;
+	};
 
 	bool init(LevelEditorLayer* layer) {
-		block = false;
-		outline = false;
-		slope = false;
-		hazard = false;
-		threeD = false;
-		portal = false;
-		monster = false;
-		pixel = false;
-		collectable = false;
-		icon = false;
-		deco = false;
-		sawblade = false;
-		trigger = false;
+		// set the booleans to false - see above
+		m_fields->block = false;
+		m_fields->outline = false;
+		m_fields->slope = false;
+		m_fields->hazard = false;
+		m_fields->threeD = false;
+		m_fields->portal = false;
+		m_fields->monster = false;
+		m_fields->pixel = false;
+		m_fields->collectable = false;
+		m_fields->icon = false;
+		m_fields->deco = false;
+		m_fields->sawblade = false;
+		m_fields->trigger = false;
 
-		editorUI=this;
 		if (!EditorUI::init(layer)) { return false; }
-		if (separateTab&&active) {
+		// check settings
+		int separateTab = Mod::get()->getSettingValue<int64_t>("separateTab");
+		bool unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
+		bool active = Mod::get()->getSettingValue<bool>("activate");
+		bool noUnstable = true;
+		//bool noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
+
+		if (separateTab==1&&active) {
 			// add the new blocks tab
 			EditorTabs::addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// old half-slab, replaced with colorable one
-				addObj(40, types::nonReplicable, items);
-				addObj(369, types::stable, items);
-				addObj(370, types::stable, items);
+				ADD_OBJ(40, NON_REPLICABLE);
+				ADD_OBJ(369, STABLE);
+				ADD_OBJ(370, STABLE);
 				// old quarter-blocks, replaced with colorable one
-				addObj(195, types::nonReplicable, items);
-				addObj(196, types::nonReplicable, items);
+				ADD_OBJ(195, NON_REPLICABLE);
+				ADD_OBJ(196, NON_REPLICABLE);
 				// old grey stripes going in,
 				// replaced with version without outlines
-				addObj(160, types::stable, items);
-				addObj(161, types::stable, items);
-				addObj(162, types::stable, items);
-				addObj(163, types::stable, items);
-				addObj(164, types::stable, items);
-				addObj(165, types::stable, items);
-				addObj(166, types::stable, items);
-				addObj(167, types::stable, items);
-				addObj(168, types::stable, items);
-				addObj(169, types::stable, items);
-				addObj(193, types::stable, items);
-				addObj(737, types::stable, items);
+				ADD_OBJ(160, STABLE);
+				ADD_OBJ(161, STABLE);
+				ADD_OBJ(162, STABLE);
+				ADD_OBJ(163, STABLE);
+				ADD_OBJ(164, STABLE);
+				ADD_OBJ(165, STABLE);
+				ADD_OBJ(166, STABLE);
+				ADD_OBJ(167, STABLE);
+				ADD_OBJ(168, STABLE);
+				ADD_OBJ(169, STABLE);
+				ADD_OBJ(193, STABLE);
+				ADD_OBJ(737, STABLE);
 				// old colored grid blocks, unknown why replaced
-				addObj(247, types::stable, items);
-				addObj(248, types::stable, items);
-				addObj(249, types::stable, items);
-				addObj(250, types::stable, items);
-				addObj(251, types::stable, items);
-				addObj(252, types::stable, items);
-				addObj(253, types::stable, items);
-				addObj(254, types::stable, items);
+				ADD_OBJ(247, STABLE);
+				ADD_OBJ(248, STABLE);
+				ADD_OBJ(249, STABLE);
+				ADD_OBJ(250, STABLE);
+				ADD_OBJ(251, STABLE);
+				ADD_OBJ(252, STABLE);
+				ADD_OBJ(253, STABLE);
+				ADD_OBJ(254, STABLE);
 				// unique variation of existing blocks, placed by Build Helper
 				for (int i = 2808; i <= 2837; i++) {
-					addObj(i, types::stable, items);
+					ADD_OBJ(i, STABLE);
 				}
 
 				auto spr = CCSprite::create("NewBlockLabel.png"_spr);
@@ -126,71 +118,73 @@ class $modify(EditorUI) {
 				return EditorTabUtils::createEditButtonBar(items, ui);
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
-			// add the new Slopes tab
-			EditorTabs::addTab(this,TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
+			// If you have all stable objects on, add the new Slopes tab
+			if (!unecessary) {
+				EditorTabs::addTab(this, TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+					auto items = CCArray::create();
 
-				// old grey grid slopes, unknown why replaced
-				addObj(289, types::stable, items);
-				addObj(291, types::stable, items);
-				// other variants of slopes with outlines
-				addObj(710, types::stable, items);
-				addObj(711, types::stable, items);
-				addObj(712, types::stable, items);
-				addObj(726, types::stable, items);
-				addObj(727, types::stable, items);
-				addObj(728, types::stable, items);
-				addObj(729, types::stable, items);
-				addObj(321, types::stable, items);
-				addObj(323, types::stable, items);
-				addObj(331, types::stable, items);
-				addObj(333, types::stable, items);
-				addObj(343, types::stable, items);
-				addObj(345, types::stable, items);
-				addObj(353, types::stable, items);
-				addObj(355, types::stable, items);
-				addObj(337, types::stable, items);
-				addObj(339, types::stable, items);
-				addObj(483, types::stable, items);
-				addObj(484, types::stable, items);
-				addObj(492, types::stable, items);
-				addObj(493, types::stable, items);
-				addObj(651, types::stable, items);
-				addObj(652, types::stable, items);
-				addObj(886, types::stable, items);
-				addObj(887, types::stable, items);
-				addObj(299, types::stable, items);
-				addObj(301, types::stable, items);
-				addObj(309, types::stable, items);
-				addObj(311, types::stable, items);
-				addObj(315, types::stable, items);
-				addObj(317, types::stable, items);
-				addObj(709, types::stable, items);
+					// old grey grid slopes, unknown why replaced
+					ADD_OBJ(289, STABLE);
+					ADD_OBJ(291, STABLE);
+					// other variants of slopes with outlines
+					ADD_OBJ(710, STABLE);
+					ADD_OBJ(711, STABLE);
+					ADD_OBJ(712, STABLE);
+					ADD_OBJ(726, STABLE);
+					ADD_OBJ(727, STABLE);
+					ADD_OBJ(728, STABLE);
+					ADD_OBJ(729, STABLE);
+					ADD_OBJ(321, STABLE);
+					ADD_OBJ(323, STABLE);
+					ADD_OBJ(331, STABLE);
+					ADD_OBJ(333, STABLE);
+					ADD_OBJ(343, STABLE);
+					ADD_OBJ(345, STABLE);
+					ADD_OBJ(353, STABLE);
+					ADD_OBJ(355, STABLE);
+					ADD_OBJ(337, STABLE);
+					ADD_OBJ(339, STABLE);
+					ADD_OBJ(483, STABLE);
+					ADD_OBJ(484, STABLE);
+					ADD_OBJ(492, STABLE);
+					ADD_OBJ(493, STABLE);
+					ADD_OBJ(651, STABLE);
+					ADD_OBJ(652, STABLE);
+					ADD_OBJ(886, STABLE);
+					ADD_OBJ(887, STABLE);
+					ADD_OBJ(299, STABLE);
+					ADD_OBJ(301, STABLE);
+					ADD_OBJ(309, STABLE);
+					ADD_OBJ(311, STABLE);
+					ADD_OBJ(315, STABLE);
+					ADD_OBJ(317, STABLE);
+					ADD_OBJ(709, STABLE);
 
-				auto spr = CCSprite::create("SlopeLabel.png"_spr);
-				spr->setScale(0.4f);
-				EditorTabUtils::setTabIcons(toggler, spr, spr);
-				return EditorTabUtils::createEditButtonBar(items, ui);
-				}, [](EditorUI*, bool state, CCNode*) {
-			});
+					auto spr = CCSprite::create("SlopeLabel.png"_spr);
+					spr->setScale(0.4f);
+					EditorTabUtils::setTabIcons(toggler, spr, spr);
+					return EditorTabUtils::createEditButtonBar(items, ui);
+					}, [](EditorUI*, bool state, CCNode*) {
+				});
+			}
 			// add the tab with 3D lines and better slope outlines
 			EditorTabs::addTab(this,TabType::BUILD, "NewOutlines"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// alternate basic slope outlines
 				// fit with blocks better
-				addObj(665, types::nonReplicable, items);
-				addObj(666, types::nonReplicable, items);
+				ADD_OBJ(665, NON_REPLICABLE);
+				ADD_OBJ(666, NON_REPLICABLE);
 				// 3D lines with hitboxes
-				addObj(1561, types::nonReplicable, items);
-				addObj(1562, types::nonReplicable, items);
-				addObj(1563, types::nonReplicable, items);
-				addObj(1564, types::nonReplicable, items);
-				addObj(1565, types::nonReplicable, items);
-				addObj(1566, types::nonReplicable, items);
-				addObj(1567, types::nonReplicable, items);
-				addObj(1568, types::nonReplicable, items);
-				addObj(1569, types::nonReplicable, items);
+				ADD_OBJ(1561, NON_REPLICABLE);
+				ADD_OBJ(1562, NON_REPLICABLE);
+				ADD_OBJ(1563, NON_REPLICABLE);
+				ADD_OBJ(1564, NON_REPLICABLE);
+				ADD_OBJ(1565, NON_REPLICABLE);
+				ADD_OBJ(1566, NON_REPLICABLE);
+				ADD_OBJ(1567, NON_REPLICABLE);
+				ADD_OBJ(1568, NON_REPLICABLE);
+				ADD_OBJ(1569, NON_REPLICABLE);
 
 				auto spr = CCSprite::create("3DLabel.png"_spr);
 				spr->setScale(0.8f);
@@ -199,54 +193,56 @@ class $modify(EditorUI) {
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
 			
-			// add a tab with more spikes and sawblades
-			EditorTabs::addTab(this, TabType::BUILD, "NewHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
+			// If you have all stable objects on, add a tab with more spikes and sawblades
+			if (!unecessary) {
+				EditorTabs::addTab(this, TabType::BUILD, "NewHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+					auto items = CCArray::create();
 
-				// old ground spike, replaced with colorable one
-				addObj(9, types::stable, items);
-				// old curve spikes, replaced with colorable one
-				addObj(61, types::stable, items);
-				addObj(243, types::stable, items);
-				addObj(244, types::stable, items);
-				addObj(366, types::stable, items);
-				addObj(367, types::stable, items);
-				addObj(368, types::stable, items);
-				// old fake spikes, unknown why replaced
-				addObj(191, types::stable, items);
-				addObj(198, types::stable, items);
-				addObj(199, types::stable, items);
-				addObj(393, types::stable, items);
-				// old spiky spikes, replaced with colorable one
-				addObj(363, types::stable, items);
-				addObj(364, types::stable, items);
-				addObj(365, types::stable, items);
-				// old bigger-curve spikes, replaced with colorable one
-				addObj(446, types::stable, items);
-				addObj(447, types::stable, items);
-				// old block-on-top spikes, replaced with colorable one
-				addObj(667, types::stable, items);
-				addObj(989, types::stable, items);
-				addObj(991, types::stable, items);
-				addObj(720, types::stable, items);
-				// old spike-on-top spikes, replaced with colorable ones
-				addObj(421, types::stable, items);
-				addObj(422, types::stable, items);
-				addObj(768, types::stable, items);
-				// old sawblades, replaced with colorable ones
-				addObj(88, types::stable, items);
-				addObj(89, types::stable, items);
-				addObj(98, types::stable, items);
-				addObj(397, types::stable, items);
-				addObj(398, types::stable, items);
-				addObj(399, types::stable, items);
+					// old ground spike, replaced with colorable one
+					ADD_OBJ(9, STABLE);
+					// old curve spikes, replaced with colorable one
+					ADD_OBJ(61, STABLE);
+					ADD_OBJ(243, STABLE);
+					ADD_OBJ(244, STABLE);
+					ADD_OBJ(366, STABLE);
+					ADD_OBJ(367, STABLE);
+					ADD_OBJ(368, STABLE);
+					// old fake spikes, unknown why replaced
+					ADD_OBJ(191, STABLE);
+					ADD_OBJ(198, STABLE);
+					ADD_OBJ(199, STABLE);
+					ADD_OBJ(393, STABLE);
+					// old spiky spikes, replaced with colorable one
+					ADD_OBJ(363, STABLE);
+					ADD_OBJ(364, STABLE);
+					ADD_OBJ(365, STABLE);
+					// old bigger-curve spikes, replaced with colorable one
+					ADD_OBJ(446, STABLE);
+					ADD_OBJ(447, STABLE);
+					// old block-on-top spikes, replaced with colorable one
+					ADD_OBJ(667, STABLE);
+					ADD_OBJ(989, STABLE);
+					ADD_OBJ(991, STABLE);
+					ADD_OBJ(720, STABLE);
+					// old spike-on-top spikes, replaced with colorable ones
+					ADD_OBJ(421, STABLE);
+					ADD_OBJ(422, STABLE);
+					ADD_OBJ(768, STABLE);
+					// old sawblades, replaced with colorable ones
+					ADD_OBJ(88, STABLE);
+					ADD_OBJ(89, STABLE);
+					ADD_OBJ(98, STABLE);
+					ADD_OBJ(397, STABLE);
+					ADD_OBJ(398, STABLE);
+					ADD_OBJ(399, STABLE);
 
-				auto spr = CCSprite::create("SpikeLabel.png"_spr);
-				spr->setScale(0.4f);
-				EditorTabUtils::setTabIcons(toggler, spr, spr);
-				return EditorTabUtils::createEditButtonBar(items, ui);
-				}, [](EditorUI*, bool state, CCNode*) {
-			});
+					auto spr = CCSprite::create("SpikeLabel.png"_spr);
+					spr->setScale(0.4f);
+					EditorTabUtils::setTabIcons(toggler, spr, spr);
+					return EditorTabUtils::createEditButtonBar(items, ui);
+					}, [](EditorUI*, bool state, CCNode*) {
+				});
+			}
 			// if unstable objects are available, add the tab with way too many pixel objects
 			if (!noUnstable) {
 				EditorTabs::addTab(this, TabType::BUILD, "NewPixels"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
@@ -260,7 +256,7 @@ class $modify(EditorUI) {
 						this is much easier to write for adding them to the editor 
 					*/
 					for (int i = 1964; i <= 2011; i++) {
-						addObj(i, types::unstable, items);
+						ADD_OBJ(i, UNSTABLE);
 					}
 
 					auto spr = CCSprite::create("PixelLabel.png"_spr);
@@ -270,34 +266,36 @@ class $modify(EditorUI) {
 					}, [](EditorUI*, bool state, CCNode*) {
 				});
 			}
-			// add the tab with new deco objects
-			EditorTabs::addTab(this, TabType::BUILD, "newDeco"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
+			// If you have all stable objects on, add the tab with new deco objects
+			if (!unecessary) {
+				EditorTabs::addTab(this, TabType::BUILD, "newDeco"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+					auto items = CCArray::create();
 
-				// old version of circle, unknown why replaced
-				addObj(725, types::stable, items);
-				// old bush versions, unknown why replaced
-				addObj(461, types::stable, items);
-				addObj(462, types::stable, items);
-				addObj(463, types::stable, items);
-				addObj(464, types::stable, items);
-				addObj(465, types::stable, items);
-				addObj(466, types::stable, items);
+					// old version of circle, unknown why replaced
+					ADD_OBJ(725, STABLE);
+					// old bush versions, unknown why replaced
+					ADD_OBJ(461, STABLE);
+					ADD_OBJ(462, STABLE);
+					ADD_OBJ(463, STABLE);
+					ADD_OBJ(464, STABLE);
+					ADD_OBJ(465, STABLE);
+					ADD_OBJ(466, STABLE);
 
-				auto spr = CCSprite::create("BushLabel.png"_spr);
-				spr->setScale(0.3f);
-				EditorTabUtils::setTabIcons(toggler, spr, spr);
-				return EditorTabUtils::createEditButtonBar(items, ui);
-				}, [](EditorUI*, bool state, CCNode*) {
-			});
+					auto spr = CCSprite::create("BushLabel.png"_spr);
+					spr->setScale(0.3f);
+					EditorTabUtils::setTabIcons(toggler, spr, spr);
+					return EditorTabUtils::createEditButtonBar(items, ui);
+					}, [](EditorUI*, bool state, CCNode*) {
+				});
+			}
 			// add the tab with unusual objects
 			EditorTabs::addTab(this, TabType::BUILD, "UnusalObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// solid startPos
-				addObj(34, types::nonReplicable, items);
+				ADD_OBJ(34, NON_REPLICABLE);
 				// other weird block (looks like it uses a weird mishmash of textures)
-				addObj(3800, types::nonReplicable, items);
+				ADD_OBJ(3800, NON_REPLICABLE);
 
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -305,25 +303,194 @@ class $modify(EditorUI) {
 				return EditorTabUtils::createEditButtonBar(items, ui);
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
-			// add the tab with more triggers
-			EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
+			// If you have all stable objects on, add the tab with more triggers
+			if (!unecessary) {
+				EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+					auto items = CCArray::create();
 
+					// old color Triggers (do not work as fas as I know)
+					// replaced with general all-colors trigger in 2.0
+					ADD_OBJ(29, UNSTABLE);
+					ADD_OBJ(30, UNSTABLE);
+					ADD_OBJ(104, UNSTABLE);
+					ADD_OBJ(105, UNSTABLE);
+					ADD_OBJ(744, UNSTABLE);
+					ADD_OBJ(915, UNSTABLE);
+					// early version of the end trigger. It does not work at all anymore. 
+					ADD_OBJ(1931, STABLE);
+					// State block with no number?
+					ADD_OBJ(3655, STABLE);
+
+					auto spr = CCSprite::create("TriggerLabel.png"_spr);
+					spr->setScale(0.4f);
+					EditorTabUtils::setTabIcons(toggler, spr, spr);
+					return EditorTabUtils::createEditButtonBar(items, ui);
+					}, [](EditorUI*, bool state, CCNode*) {
+				}); 
+			}
+		}
+		if (separateTab == 2 && active) {
+			EditorTabs::addTab(this, TabType::BUILD, "allUnlistedObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+				auto items = CCArray::create();
+				// old half-slab, replaced with colorable one
+				ADD_OBJ(40, NON_REPLICABLE);
+				ADD_OBJ(369, STABLE);
+				ADD_OBJ(370, STABLE);
+				// old quarter-blocks, replaced with colorable one
+				ADD_OBJ(195, NON_REPLICABLE);
+				ADD_OBJ(196, NON_REPLICABLE);
+				// old grey stripes going in,
+				// replaced with version without outlines
+				ADD_OBJ(160, STABLE);
+				ADD_OBJ(161, STABLE);
+				ADD_OBJ(162, STABLE);
+				ADD_OBJ(163, STABLE);
+				ADD_OBJ(164, STABLE);
+				ADD_OBJ(165, STABLE);
+				ADD_OBJ(166, STABLE);
+				ADD_OBJ(167, STABLE);
+				ADD_OBJ(168, STABLE);
+				ADD_OBJ(169, STABLE);
+				ADD_OBJ(193, STABLE);
+				ADD_OBJ(737, STABLE);
+				// old colored grid blocks, unknown why replaced
+				ADD_OBJ(247, STABLE);
+				ADD_OBJ(248, STABLE);
+				ADD_OBJ(249, STABLE);
+				ADD_OBJ(250, STABLE);
+				ADD_OBJ(251, STABLE);
+				ADD_OBJ(252, STABLE);
+				ADD_OBJ(253, STABLE);
+				ADD_OBJ(254, STABLE);
+				// unique variation of existing blocks, placed by Build Helper
+				for (int i = 2808; i <= 2837; i++) {
+					ADD_OBJ(i, STABLE);
+				}
+				// old grey grid slopes, unknown why replaced
+				ADD_OBJ(289, STABLE);
+				ADD_OBJ(291, STABLE);
+				// other variants of slopes with outlines
+				ADD_OBJ(710, STABLE);
+				ADD_OBJ(711, STABLE);
+				ADD_OBJ(712, STABLE);
+				ADD_OBJ(726, STABLE);
+				ADD_OBJ(727, STABLE);
+				ADD_OBJ(728, STABLE);
+				ADD_OBJ(729, STABLE);
+				ADD_OBJ(321, STABLE);
+				ADD_OBJ(323, STABLE);
+				ADD_OBJ(331, STABLE);
+				ADD_OBJ(333, STABLE);
+				ADD_OBJ(343, STABLE);
+				ADD_OBJ(345, STABLE);
+				ADD_OBJ(353, STABLE);
+				ADD_OBJ(355, STABLE);
+				ADD_OBJ(337, STABLE);
+				ADD_OBJ(339, STABLE);
+				ADD_OBJ(483, STABLE);
+				ADD_OBJ(484, STABLE);
+				ADD_OBJ(492, STABLE);
+				ADD_OBJ(493, STABLE);
+				ADD_OBJ(651, STABLE);
+				ADD_OBJ(652, STABLE);
+				ADD_OBJ(886, STABLE);
+				ADD_OBJ(887, STABLE);
+				ADD_OBJ(299, STABLE);
+				ADD_OBJ(301, STABLE);
+				ADD_OBJ(309, STABLE);
+				ADD_OBJ(311, STABLE);
+				ADD_OBJ(315, STABLE);
+				ADD_OBJ(317, STABLE);
+				ADD_OBJ(709, STABLE);
+				// alternate basic slope outlines
+				// fit with blocks better
+				ADD_OBJ(665, NON_REPLICABLE);
+				ADD_OBJ(666, NON_REPLICABLE);
+				// 3D lines with hitboxes
+				ADD_OBJ(1561, NON_REPLICABLE);
+				ADD_OBJ(1562, NON_REPLICABLE);
+				ADD_OBJ(1563, NON_REPLICABLE);
+				ADD_OBJ(1564, NON_REPLICABLE);
+				ADD_OBJ(1565, NON_REPLICABLE);
+				ADD_OBJ(1566, NON_REPLICABLE);
+				ADD_OBJ(1567, NON_REPLICABLE);
+				ADD_OBJ(1568, NON_REPLICABLE);
+				ADD_OBJ(1569, NON_REPLICABLE);
+				// old ground spike, replaced with colorable one
+				ADD_OBJ(9, STABLE);
+				// old curve spikes, replaced with colorable one
+				ADD_OBJ(61, STABLE);
+				ADD_OBJ(243, STABLE);
+				ADD_OBJ(244, STABLE);
+				ADD_OBJ(366, STABLE);
+				ADD_OBJ(367, STABLE);
+				ADD_OBJ(368, STABLE);
+				// old fake spikes, unknown why replaced
+				ADD_OBJ(191, STABLE);
+				ADD_OBJ(198, STABLE);
+				ADD_OBJ(199, STABLE);
+				ADD_OBJ(393, STABLE);
+				// old spiky spikes, replaced with colorable one
+				ADD_OBJ(363, STABLE);
+				ADD_OBJ(364, STABLE);
+				ADD_OBJ(365, STABLE);
+				// old bigger-curve spikes, replaced with colorable one
+				ADD_OBJ(446, STABLE);
+				ADD_OBJ(447, STABLE);
+				// old block-on-top spikes, replaced with colorable one
+				ADD_OBJ(667, STABLE);
+				ADD_OBJ(989, STABLE);
+				ADD_OBJ(991, STABLE);
+				ADD_OBJ(720, STABLE);
+				// old spike-on-top spikes, replaced with colorable ones
+				ADD_OBJ(421, STABLE);
+				ADD_OBJ(422, STABLE);
+				ADD_OBJ(768, STABLE);
+				// old sawblades, replaced with colorable ones
+				ADD_OBJ(88, STABLE);
+				ADD_OBJ(89, STABLE);
+				ADD_OBJ(98, STABLE);
+				ADD_OBJ(397, STABLE);
+				ADD_OBJ(398, STABLE);
+				ADD_OBJ(399, STABLE);
+				/*
+					1964-2011 are random pixels
+					there are so many of these
+					the exact same as one of the ones
+					in the pixel blocks tab
+					this is much easier to write for adding them to the editor
+				*/
+				for (int i = 1964; i <= 2011; i++) {
+					ADD_OBJ(i, UNSTABLE);
+				}
+				// old version of circle, unknown why replaced
+				ADD_OBJ(725, STABLE);
+				// old bush versions, unknown why replaced
+				ADD_OBJ(461, STABLE);
+				ADD_OBJ(462, STABLE);
+				ADD_OBJ(463, STABLE);
+				ADD_OBJ(464, STABLE);
+				ADD_OBJ(465, STABLE);
+				ADD_OBJ(466, STABLE);
 				// old color Triggers (do not work as fas as I know)
 				// replaced with general all-colors trigger in 2.0
-				addObj(29, types::unstable, items);
-				addObj(30, types::unstable, items);
-				addObj(104, types::unstable, items);
-				addObj(105, types::unstable, items);
-				addObj(744, types::unstable, items);
-				addObj(915, types::unstable, items);
+				ADD_OBJ(29, UNSTABLE);
+				ADD_OBJ(30, UNSTABLE);
+				ADD_OBJ(104, UNSTABLE);
+				ADD_OBJ(105, UNSTABLE);
+				ADD_OBJ(744, UNSTABLE);
+				ADD_OBJ(915, UNSTABLE);
 				// early version of the end trigger. It does not work at all anymore. 
-				addObj(1931, types::stable, items);
+				ADD_OBJ(1931, STABLE);
 				// State block with no number?
-				addObj(3655, types::stable, items);
+				ADD_OBJ(3655, STABLE);
+				// solid startPos
+				ADD_OBJ(34, NON_REPLICABLE);
+				// other weird block (looks like it uses a weird mishmash of textures)
+				ADD_OBJ(3800, NON_REPLICABLE);
 
-				auto spr = CCSprite::create("TriggerLabel.png"_spr);
-				spr->setScale(0.4f);
+				auto spr = CCSprite::create("StartPosLabel.png"_spr);
+				spr->setScale(0.6f);
 				EditorTabUtils::setTabIcons(toggler, spr, spr);
 				return EditorTabUtils::createEditButtonBar(items, ui);
 				}, [](EditorUI*, bool state, CCNode*) {
@@ -334,16 +501,25 @@ class $modify(EditorUI) {
 };
 
 // adds an object to an editor tab
-void addObj(int objId, enum types necessary, cocos2d::CCArray* oArr) {
+void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr) {
+	
+	bool unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
+	bool active = Mod::get()->getSettingValue<bool>("activate");
+	bool noUnstable = true;
+	//bool noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
+
 	// if all objects are to be shown, 
 	// or if it is unecessary and !unecessary, 
 	// or if it is nonReplicable
+
 	if(!noUnstable||
-		(necessary==stable&&!unecessary)||
-		necessary==nonReplicable) {
+		(necessary==ObjTypes::STABLE&&!unecessary)||
+		necessary==ObjTypes::NON_REPLICABLE) {
 		//first argument is obj id, 2nd is always 4
-		auto obj=editorUI->getCreateBtn(objId,4);
-		oArr->addObject(obj);
+		auto obj=ui->getCreateBtn(objId,4);
+		if (obj && oArr->indexOfObject(obj) == UINT_MAX) {
+			oArr->addObject(obj);
+		}
 	}
 }
 
@@ -352,150 +528,156 @@ class $modify(EditButtonBar) {
 	
 	$override
 	void loadFromItems(CCArray * items, int r, int c, bool unkBool) {
-		if (!active||separateTab) {
+
+		int separateTab = Mod::get()->getSettingValue<int64_t>("separateTab");
+		bool active = Mod::get()->getSettingValue<bool>("activate");
+
+		UnlistedObjectsUI* ui = static_cast<UnlistedObjectsUI*>(this->getParent());
+
+		if (!active||separateTab!=0) {
 			EditButtonBar::loadFromItems(items, r, c, unkBool);
 			return;
 		}
-		if (this->getID() == "block-tab-bar" && !block) {
+		if (this->getID() == "block-tab-bar" && !ui->m_fields->block) {
 			// old half-slab, replaced with colorable one
-			addObj(40, types::nonReplicable, items);
-			addObj(369, types::stable, items);
-			addObj(370, types::stable, items);
+			ADD_OBJ(40, NON_REPLICABLE);
+			ADD_OBJ(369, STABLE);
+			ADD_OBJ(370, STABLE);
 			// old quarter-blocks, replaced with colorable one
-			addObj(195, types::nonReplicable, items);
-			addObj(196, types::nonReplicable, items);
+			ADD_OBJ(195, NON_REPLICABLE);
+			ADD_OBJ(196, NON_REPLICABLE);
 			// old grey stripes going in,
 			// replaced with version without outlines
-			addObj(160, types::stable, items);
-			addObj(161, types::stable, items);
-			addObj(162, types::stable, items);
-			addObj(163, types::stable, items);
-			addObj(164, types::stable, items);
-			addObj(165, types::stable, items);
-			addObj(166, types::stable, items);
-			addObj(167, types::stable, items);
-			addObj(168, types::stable, items);
-			addObj(169, types::stable, items);
-			addObj(193, types::stable, items);
-			addObj(737, types::stable, items);
+			ADD_OBJ(160, STABLE);
+			ADD_OBJ(161, STABLE);
+			ADD_OBJ(162, STABLE);
+			ADD_OBJ(163, STABLE);
+			ADD_OBJ(164, STABLE);
+			ADD_OBJ(165, STABLE);
+			ADD_OBJ(166, STABLE);
+			ADD_OBJ(167, STABLE);
+			ADD_OBJ(168, STABLE);
+			ADD_OBJ(169, STABLE);
+			ADD_OBJ(193, STABLE);
+			ADD_OBJ(737, STABLE);
 			// old colored grid blocks, unknown why replaced
-			addObj(247, types::stable, items);
-			addObj(248, types::stable, items);
-			addObj(249, types::stable, items);
-			addObj(250, types::stable, items);
-			addObj(251, types::stable, items);
-			addObj(252, types::stable, items);
-			addObj(253, types::stable, items);
-			addObj(254, types::stable, items);
+			ADD_OBJ(247, STABLE);
+			ADD_OBJ(248, STABLE);
+			ADD_OBJ(249, STABLE);
+			ADD_OBJ(250, STABLE);
+			ADD_OBJ(251, STABLE);
+			ADD_OBJ(252, STABLE);
+			ADD_OBJ(253, STABLE);
+			ADD_OBJ(254, STABLE);
 			// unique variation of existing blocks, placed by Build Helper
 			for (int i = 2808; i <= 2837; i++) {
-				addObj(i, types::stable, items);
+				ADD_OBJ(i, STABLE);
 			}
 			// solid startPos
-			addObj(34, types::nonReplicable, items);
+			ADD_OBJ(34, NON_REPLICABLE);
 			// other weird block (looks like it uses a weird mishmash of textures)
-			addObj(3800, types::nonReplicable, items);
-			block = true;
+			ADD_OBJ(3800, NON_REPLICABLE);
+			ui->m_fields->block = true;
 		}
-		else if (this->getID() == "outline-tab-bar" && !outline) {
+		else if (this->getID() == "outline-tab-bar" && !ui->m_fields->outline) {
 			// alternate basic slope outlines
 			// fit with blocks better
-			addObj(665, types::nonReplicable, items);
-			addObj(666, types::nonReplicable, items);
-			outline = true;
+			ADD_OBJ(665, NON_REPLICABLE);
+			ADD_OBJ(666, NON_REPLICABLE);
+			ui->m_fields->outline = true;
 		}
-		else if (this->getID() == "slope-tab-bar" && !slope) {
+		else if (this->getID() == "slope-tab-bar" && !ui->m_fields->slope) {
 			// old grey grid slopes, unknown why replaced
-			addObj(289, types::stable, items);
-			addObj(291, types::stable, items);
+			ADD_OBJ(289, STABLE);
+			ADD_OBJ(291, STABLE);
 			// other variants of slopes with outlines
-			addObj(710, types::stable, items);
-			addObj(711, types::stable, items);
-			addObj(712, types::stable, items);
-			addObj(726, types::stable, items);
-			addObj(727, types::stable, items);
-			addObj(728, types::stable, items);
-			addObj(729, types::stable, items);
-			addObj(321, types::stable, items);
-			addObj(323, types::stable, items);
-			addObj(331, types::stable, items);
-			addObj(333, types::stable, items);
-			addObj(343, types::stable, items);
-			addObj(345, types::stable, items);
-			addObj(353, types::stable, items);
-			addObj(355, types::stable, items);
-			addObj(337, types::stable, items);
-			addObj(339, types::stable, items);
-			addObj(483, types::stable, items);
-			addObj(484, types::stable, items);
-			addObj(492, types::stable, items);
-			addObj(493, types::stable, items);
-			addObj(651, types::stable, items);
-			addObj(652, types::stable, items);
-			addObj(886, types::stable, items);
-			addObj(887, types::stable, items);
-			addObj(299, types::stable, items);
-			addObj(301, types::stable, items);
-			addObj(309, types::stable, items);
-			addObj(311, types::stable, items);
-			addObj(315, types::stable, items);
-			addObj(317, types::stable, items);
-			addObj(709, types::stable, items);
-			slope = true;
+			ADD_OBJ(710, STABLE);
+			ADD_OBJ(711, STABLE);
+			ADD_OBJ(712, STABLE);
+			ADD_OBJ(726, STABLE);
+			ADD_OBJ(727, STABLE);
+			ADD_OBJ(728, STABLE);
+			ADD_OBJ(729, STABLE);
+			ADD_OBJ(321, STABLE);
+			ADD_OBJ(323, STABLE);
+			ADD_OBJ(331, STABLE);
+			ADD_OBJ(333, STABLE);
+			ADD_OBJ(343, STABLE);
+			ADD_OBJ(345, STABLE);
+			ADD_OBJ(353, STABLE);
+			ADD_OBJ(355, STABLE);
+			ADD_OBJ(337, STABLE);
+			ADD_OBJ(339, STABLE);
+			ADD_OBJ(483, STABLE);
+			ADD_OBJ(484, STABLE);
+			ADD_OBJ(492, STABLE);
+			ADD_OBJ(493, STABLE);
+			ADD_OBJ(651, STABLE);
+			ADD_OBJ(652, STABLE);
+			ADD_OBJ(886, STABLE);
+			ADD_OBJ(887, STABLE);
+			ADD_OBJ(299, STABLE);
+			ADD_OBJ(301, STABLE);
+			ADD_OBJ(309, STABLE);
+			ADD_OBJ(311, STABLE);
+			ADD_OBJ(315, STABLE);
+			ADD_OBJ(317, STABLE);
+			ADD_OBJ(709, STABLE);
+			ui->m_fields->slope = true;
 		}
-		else if (this->getID() == "hazard-tab-bar" && !hazard) {
+		else if (this->getID() == "hazard-tab-bar" && !ui->m_fields->hazard) {
 			// old ground spike, replaced with colorable one
-			addObj(9, types::stable, items);
+			ADD_OBJ(9, STABLE);
 			// old curve spikes, replaced with colorable one
-			addObj(61, types::stable, items);
-			addObj(243, types::stable, items);
-			addObj(244, types::stable, items);
-			addObj(366, types::stable, items);
-			addObj(367, types::stable, items);
-			addObj(368, types::stable, items);
+			ADD_OBJ(61, STABLE);
+			ADD_OBJ(243, STABLE);
+			ADD_OBJ(244, STABLE);
+			ADD_OBJ(366, STABLE);
+			ADD_OBJ(367, STABLE);
+			ADD_OBJ(368, STABLE);
 			// old fake spikes, unknown why replaced
-			addObj(191, types::stable, items);
-			addObj(198, types::stable, items);
-			addObj(199, types::stable, items);
-			addObj(393, types::stable, items);
+			ADD_OBJ(191, STABLE);
+			ADD_OBJ(198, STABLE);
+			ADD_OBJ(199, STABLE);
+			ADD_OBJ(393, STABLE);
 			// old spiky spikes, replaced with colorable one
-			addObj(363, types::stable, items);
-			addObj(364, types::stable, items);
-			addObj(365, types::stable, items);
+			ADD_OBJ(363, STABLE);
+			ADD_OBJ(364, STABLE);
+			ADD_OBJ(365, STABLE);
 			// old bigger-curve spikes, replaced with colorable one
-			addObj(446, types::stable, items);
-			addObj(447, types::stable, items);
+			ADD_OBJ(446, STABLE);
+			ADD_OBJ(447, STABLE);
 			// old block-on-top spikes, replaced with colorable one
-			addObj(667, types::stable, items);
-			addObj(989, types::stable, items);
-			addObj(991, types::stable, items);
-			addObj(720, types::stable, items);
+			ADD_OBJ(667, STABLE);
+			ADD_OBJ(989, STABLE);
+			ADD_OBJ(991, STABLE);
+			ADD_OBJ(720, STABLE);
 			// old spike-on-top spikes, replaced with colorable ones
-			addObj(421, types::stable, items);
-			addObj(422, types::stable, items);
-			addObj(768, types::stable, items);
-			hazard = true;
+			ADD_OBJ(421, STABLE);
+			ADD_OBJ(422, STABLE);
+			ADD_OBJ(768, STABLE);
+			ui->m_fields->hazard = true;
 		}
-		else if (this->getID() == "3d-tab-bar" && !threeD) {
+		else if (this->getID() == "3d-tab-bar" && !ui->m_fields->threeD) {
 			// 3D lines with hitboxes
-			addObj(1561, types::nonReplicable, items);
-			addObj(1562, types::nonReplicable, items);
-			addObj(1563, types::nonReplicable, items);
-			addObj(1564, types::nonReplicable, items);
-			addObj(1565, types::nonReplicable, items);
-			addObj(1566, types::nonReplicable, items);
-			addObj(1567, types::nonReplicable, items);
-			addObj(1568, types::nonReplicable, items);
-			addObj(1569, types::nonReplicable, items);
-			threeD = true;
+			ADD_OBJ(1561, NON_REPLICABLE);
+			ADD_OBJ(1562, NON_REPLICABLE);
+			ADD_OBJ(1563, NON_REPLICABLE);
+			ADD_OBJ(1564, NON_REPLICABLE);
+			ADD_OBJ(1565, NON_REPLICABLE);
+			ADD_OBJ(1566, NON_REPLICABLE);
+			ADD_OBJ(1567, NON_REPLICABLE);
+			ADD_OBJ(1568, NON_REPLICABLE);
+			ADD_OBJ(1569, NON_REPLICABLE);
+			ui->m_fields->threeD = true;
 		}
-		else if (this->getID() == "portal-tab-bar" && !portal) {
-			portal = true;
+		else if (this->getID() == "portal-tab-bar" && !ui->m_fields->portal) {
+			ui->m_fields->portal = true;
 		}
-		else if (this->getID() == "monster-tab-bar"&&!monster) {
-			monster = true;
+		else if (this->getID() == "monster-tab-bar"&&!ui->m_fields->monster) {
+			ui->m_fields->monster = true;
 		}
-		else if (this->getID() == "pixel-tab-bar"&&!pixel) {
+		else if (this->getID() == "pixel-tab-bar"&&!ui->m_fields->pixel) {
 			/*
 				1964-2011 are random pixels
 				there are so many of these
@@ -505,52 +687,52 @@ class $modify(EditButtonBar) {
 			*/
 
 			for(int i=1964;i<=2011;i++) {
-				addObj(i,types::unstable, items);
+				ADD_OBJ(i,UNSTABLE);
 			}
-			pixel = true;
+			ui->m_fields->pixel = true;
 		}
-		else if (this->getID() == "collectable-tab-bar"&&!collectable) {
-			collectable = true;
+		else if (this->getID() == "collectable-tab-bar"&&!ui->m_fields->collectable) {
+			ui->m_fields->collectable = true;
 		}
-		else if (this->getID() == "icon-tab-bar"&&!icon) {
-			icon = true;
+		else if (this->getID() == "icon-tab-bar"&&!ui->m_fields->icon) {
+			ui->m_fields->icon = true;
 		}
-		else if (this->getID() == "deco-tab-bar"&&!deco) {
+		else if (this->getID() == "deco-tab-bar"&&!ui->m_fields->deco) {
 			// old version of circle, unknown why replaced
-			addObj(725, types::stable, items);
+			ADD_OBJ(725, STABLE);
 			// old bush versions, unknown why replaced
-			addObj(461, types::stable, items);
-			addObj(462, types::stable, items);
-			addObj(463, types::stable, items);
-			addObj(464, types::stable, items);
-			addObj(465, types::stable, items);
-			addObj(466, types::stable, items);
-			deco = true;
+			ADD_OBJ(461, STABLE);
+			ADD_OBJ(462, STABLE);
+			ADD_OBJ(463, STABLE);
+			ADD_OBJ(464, STABLE);
+			ADD_OBJ(465, STABLE);
+			ADD_OBJ(466, STABLE);
+			ui->m_fields->deco = true;
 		}
-		else if (this->getID() == "sawblade-tab-bar"&&!sawblade) {
+		else if (this->getID() == "sawblade-tab-bar"&&!ui->m_fields->sawblade) {
 			// old sawblades, replaced with colorable ones
-			addObj(88, types::stable, items);
-			addObj(89, types::stable, items);
-			addObj(98, types::stable, items);
-			addObj(397, types::stable, items);
-			addObj(398, types::stable, items);
-			addObj(399, types::stable, items);
-			sawblade = true;
+			ADD_OBJ(88, STABLE);
+			ADD_OBJ(89, STABLE);
+			ADD_OBJ(98, STABLE);
+			ADD_OBJ(397, STABLE);
+			ADD_OBJ(398, STABLE);
+			ADD_OBJ(399, STABLE);
+			ui->m_fields->sawblade = true;
 		}
-		else if (this->getID() == "trigger-tab-bar"&&!trigger) {
+		else if (this->getID() == "trigger-tab-bar"&&!ui->m_fields->trigger) {
 			// old color Triggers (do not work as fas as I know)
 			// replaced with general all-colors trigger in 2.0
-			addObj(29, types::unstable, items);
-			addObj(30, types::unstable, items);
-			addObj(104, types::unstable, items);
-			addObj(105, types::unstable, items);
-			addObj(744, types::unstable, items);
-			addObj(915, types::unstable, items);
+			ADD_OBJ(29, UNSTABLE);
+			ADD_OBJ(30, UNSTABLE);
+			ADD_OBJ(104, UNSTABLE);
+			ADD_OBJ(105, UNSTABLE);
+			ADD_OBJ(744, UNSTABLE);
+			ADD_OBJ(915, UNSTABLE);
 			// early version of the end trigger. It does not work at all anymore. 
-			addObj(1931, types::stable, items);
+			ADD_OBJ(1931, STABLE);
 			// State block with no number?
-			addObj(3655, types::stable, items);
-			trigger = true;
+			ADD_OBJ(3655, STABLE);
+			ui->m_fields->trigger = true;
 		}
 		EditButtonBar::loadFromItems(items, r, c, unkBool);
 	}
