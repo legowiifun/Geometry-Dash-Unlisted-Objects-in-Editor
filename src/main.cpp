@@ -66,13 +66,13 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 
 		if (!EditorUI::init(layer)) { return false; }
 		// check settings
-		int separateTab = Mod::get()->getSettingValue<int64_t>("separateTab");
-		bool unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
-		bool active = Mod::get()->getSettingValue<bool>("activate");
+		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
+		bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
+		bool active = Mod::get()->template getSettingValue<bool>("activate");
 		bool noUnstable = true;
-		//bool noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
+		//bool noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
 
-		if (separateTab==1&&active) {
+		if (separateTab=="Separate Tabs" && active) {
 			// add the new blocks tab
 			EditorTabs::addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
@@ -127,6 +127,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 					ADD_OBJ(289, STABLE);
 					ADD_OBJ(291, STABLE);
 					// other variants of slopes with outlines
+					ADD_OBJ(709, STABLE);
 					ADD_OBJ(710, STABLE);
 					ADD_OBJ(711, STABLE);
 					ADD_OBJ(712, STABLE);
@@ -158,7 +159,6 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 					ADD_OBJ(311, STABLE);
 					ADD_OBJ(315, STABLE);
 					ADD_OBJ(317, STABLE);
-					ADD_OBJ(709, STABLE);
 
 					auto spr = CCSprite::create("SlopeLabel.png"_spr);
 					spr->setScale(0.4f);
@@ -329,7 +329,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				}); 
 			}
 		}
-		if (separateTab == 2 && active) {
+		if (separateTab == "Single Tab" && active) {
 			EditorTabs::addTab(this, TabType::BUILD, "allUnlistedObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
@@ -370,6 +370,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(289, STABLE);
 				ADD_OBJ(291, STABLE);
 				// other variants of slopes with outlines
+				ADD_OBJ(709, STABLE);
 				ADD_OBJ(710, STABLE);
 				ADD_OBJ(711, STABLE);
 				ADD_OBJ(712, STABLE);
@@ -401,7 +402,6 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(311, STABLE);
 				ADD_OBJ(315, STABLE);
 				ADD_OBJ(317, STABLE);
-				ADD_OBJ(709, STABLE);
 				// alternate basic slope outlines
 				// fit with blocks better
 				ADD_OBJ(665, NON_REPLICABLE);
@@ -503,10 +503,10 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 // adds an object to an editor tab
 void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr) {
 	
-	bool unecessary = Mod::get()->getSettingValue<bool>("doNotInclude");
-	bool active = Mod::get()->getSettingValue<bool>("activate");
+	bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
+	bool active = Mod::get()->template getSettingValue<bool>("activate");
 	bool noUnstable = true;
-	//bool noUnstable = Mod::get()->getSettingValue<bool>("removeUnstable");
+	//bool noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
 
 	// if all objects are to be shown, 
 	// or if it is unecessary and !unecessary, 
@@ -529,12 +529,12 @@ class $modify(EditButtonBar) {
 	$override
 	void loadFromItems(CCArray * items, int r, int c, bool unkBool) {
 
-		int separateTab = Mod::get()->getSettingValue<int64_t>("separateTab");
-		bool active = Mod::get()->getSettingValue<bool>("activate");
+		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
+		bool active = Mod::get()->template getSettingValue<bool>("activate");
 
 		UnlistedObjectsUI* ui = static_cast<UnlistedObjectsUI*>(this->getParent());
 
-		if (!active||separateTab!=0) {
+		if (!active||separateTab!="Normal Tabs") {
 			EditButtonBar::loadFromItems(items, r, c, unkBool);
 			return;
 		}
@@ -591,6 +591,7 @@ class $modify(EditButtonBar) {
 			ADD_OBJ(289, STABLE);
 			ADD_OBJ(291, STABLE);
 			// other variants of slopes with outlines
+			ADD_OBJ(709, STABLE);
 			ADD_OBJ(710, STABLE);
 			ADD_OBJ(711, STABLE);
 			ADD_OBJ(712, STABLE);
@@ -622,7 +623,6 @@ class $modify(EditButtonBar) {
 			ADD_OBJ(311, STABLE);
 			ADD_OBJ(315, STABLE);
 			ADD_OBJ(317, STABLE);
-			ADD_OBJ(709, STABLE);
 			ui->m_fields->slope = true;
 		}
 		else if (this->getID() == "hazard-tab-bar" && !ui->m_fields->hazard) {

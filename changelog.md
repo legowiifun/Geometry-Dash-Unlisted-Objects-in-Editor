@@ -1,3 +1,9 @@
+# v1.3.4
+ * Increased the minimum Geode version
+ * Increased the minimum version of alphalaneous.editortab_api
+ * Used the new settings system to improve the settings
+ * Bugfixes
+
 # v1.3.3
  * Bumped up the minimum required version of alphalaneous.editortab_api
  * Cleaned up the code. Thanks to Alphalaneous for helping with this
