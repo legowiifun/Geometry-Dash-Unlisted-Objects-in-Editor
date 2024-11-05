@@ -9,13 +9,13 @@
 	"settings": {
 		"activate": {
 			"name": "Activate",
-			"description": "Activate or deactivate the mod without requiring a restart of Geometry Dash",
+			"description": "Activate or deactivate the mod without requiring a restart of Geometry Dash.",
 			"type": "bool",
 			"default": true
 		},
 		"doNotInclude": {
-			"name": "Do not include unecessary ones",
-			"description": "Only adds objects that cannot be replicated using listed objects",
+			"name": "Do not include unnecessary ones",
+			"description": "Only adds objects that cannot be replicated using listed objects.",
 			"type": "bool",
 			"default": false,
 			"enable-if": "activate"
