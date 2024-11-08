@@ -289,7 +289,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				});
 			}
 			// add the tab with unusual objects
-			EditorTabs::addTab(this, TabType::BUILD, "UnusalObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+			EditorTabs::addTab(this, TabType::BUILD, "UnusualObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
 
 				// solid startPos
