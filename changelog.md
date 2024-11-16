@@ -1,3 +1,7 @@
+# v1.3.5
+ * Ported to 2.2074/Geode 4.0.0
+ * Spelling/Grammar fixes. Thanks to Nightcaat
+
 # v1.3.4
  * Increased the minimum Geode version
  * Increased the minimum version of alphalaneous.editortab_api

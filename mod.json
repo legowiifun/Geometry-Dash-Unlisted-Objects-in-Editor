@@ -1,7 +1,11 @@
 {
-	"geode": "4.0.0-alpha.1",
-	"version": "v1.3.4",
-	"gd": { "win": "2.206",  "android": "2.206", "mac": "2.206"},
+	"geode": "4.0.0-beta.1",
+	"version": "v1.3.5",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074"
+	},
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
 	"developer": "legowiifun",
@@ -26,7 +30,7 @@
 			"type": "string",
 			"enable-if": "activate",
 			"default": "Normal Tabs",
-			"one-of": ["Normal Tabs","Separate Tabs","Single Tab"]
+			"one-of": [ "Normal Tabs", "Separate Tabs", "Single Tab" ]
 		}
 	},
 	"resources": {
@@ -38,12 +42,12 @@
 	"dependencies": [
 		{
 			"id": "alphalaneous.editortab_api",
-			"version": ">=1.0.6-alpha.1",
+			"version": ">=1.0.6",
 			"importance": "required"
 		},
 		{
 			"id": "geode.node-ids",
-			"version": ">=v1.17.0-alpha.2",
+			"version": ">=v1.17.0",
 			"importance": "required"
 		}
 	],

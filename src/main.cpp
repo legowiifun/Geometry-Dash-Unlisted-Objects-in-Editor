@@ -2,9 +2,9 @@
  * Include the Geode headers.
  */
 #include <Geode/Geode.hpp>
-#include <Geode/loader/SettingEvent.hpp>
 #include <Geode/modify/EditButtonBar.hpp>
 #include <Geode/modify/EditorUI.hpp>
+#include <Geode/loader/Loader.hpp>
 
 #include <alphalaneous.editortab_api/include/EditorTabs.hpp>
 
@@ -65,6 +65,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		m_fields->trigger = false;
 
 		if (!EditorUI::init(layer)) { return false; }
+		// the following lines will be re-enabled when alphalaneous updates editor tab API for 2.207
 		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 		bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
@@ -307,8 +308,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 			if (!unecessary) {
 				EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 					auto items = CCArray::create();
-
-					// old color Triggers (do not work as fas as I know)
+					// old color Triggers
 					// replaced with general all-colors trigger in 2.0
 					ADD_OBJ(29, UNSTABLE);
 					ADD_OBJ(30, UNSTABLE);
