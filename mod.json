@@ -23,6 +23,13 @@
 			"type": "bool",
 			"default": false,
 			"enable-if": "activate"
+		}, 
+		"removeUnstable":{
+		"name": "Remove unstable blocks",
+		"description": "Removes blocks that are likely to cause the game to crash. I do not recommend turning this off",
+		"type": "bool",
+		"default": true,
+		"enable-if": "activate"
 		},
 		"separateTab": {
 			"name": "Remove objects from normal tabs",
