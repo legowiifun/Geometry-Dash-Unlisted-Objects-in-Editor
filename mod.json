@@ -25,8 +25,8 @@
 			"enable-if": "activate"
 		},
 		"separateTab": {
-			"name": "Remove objects from normal tabs",
-			"description": "Chooses where to add the objects.",
+			"name": "Add objects to...",
+			"description": "Chooses which tab to add the objects on.",
 			"type": "string",
 			"enable-if": "activate",
 			"default": "Normal Tabs",
