@@ -1,6 +1,7 @@
 # v1.4.0
  * OLD COLOR TRIGGERS ARE HERE!!!
- * Thank you to Pololak for identifying the exact object that caused the issue, and commenting it out in his fork. 
+ * Thank you to Pololak for identifying the exact object that caused the issue, and commenting it out in his fork.
+ * I merged a pull request by Ziegenhainy to make the settings more readable. 
 
 # v1.3.5
  * Ported to 2.2074/Geode 4.0.0
