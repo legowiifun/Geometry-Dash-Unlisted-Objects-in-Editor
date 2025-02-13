@@ -46,8 +46,9 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		bool deco;
 		bool sawblade;
 		bool trigger;
-	};
 
+		std::vector<CreateMenuItem*> buttonFix;
+	};
 	bool init(LevelEditorLayer* layer) {
 		// set the booleans to false - see above
 		m_fields->block = false;
@@ -65,19 +66,18 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		m_fields->trigger = false;
 
 		if (!EditorUI::init(layer)) { return false; }
-		// the following lines will be re-enabled when alphalaneous updates editor tab API for 2.207
 		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 		bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
 		bool noUnstable = true;
-		//bool noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
+		 //noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
 
 		if (separateTab=="Separate Tabs" && active) {
 			// add the new blocks tab
 			EditorTabs::addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
-
+				
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -259,12 +259,14 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 					for (int i = 1964; i <= 2011; i++) {
 						ADD_OBJ(i, UNSTABLE);
 					}
-
+					
 					auto spr = CCSprite::create("PixelLabel.png"_spr);
 					spr->setScale(0.6f);
 					EditorTabUtils::setTabIcons(toggler, spr, spr);
 					return EditorTabUtils::createEditButtonBar(items, ui);
-					}, [](EditorUI*, bool state, CCNode*) {
+					}, [](EditorUI* ui, bool state, CCNode*) {
+						UnlistedObjectsUI* unlistedUI = reinterpret_cast<UnlistedObjectsUI*>(ui);
+
 				});
 			}
 			// If you have all stable objects on, add the tab with new deco objects
@@ -304,31 +306,31 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				return EditorTabUtils::createEditButtonBar(items, ui);
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
-			// If you have all stable objects on, add the tab with more triggers
-			if (!unecessary) {
-				EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-					auto items = CCArray::create();
-					// old color Triggers
-					// replaced with general all-colors trigger in 2.0
-					ADD_OBJ(29, UNSTABLE);
-					ADD_OBJ(30, UNSTABLE);
-					ADD_OBJ(104, UNSTABLE);
-					ADD_OBJ(105, UNSTABLE);
-					ADD_OBJ(744, UNSTABLE);
-					ADD_OBJ(915, UNSTABLE);
-					// early version of the end trigger. It does not work at all anymore. 
-					ADD_OBJ(1931, STABLE);
-					// State block with no number?
-					ADD_OBJ(3655, STABLE);
+			// add the tab with more triggers
+			
+			EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
+				auto items = CCArray::create();
+				// old color Triggers
+				// replaced with general all-colors trigger in 2.0
+				ADD_OBJ(29, NON_REPLICABLE);
+				ADD_OBJ(30, STABLE);
+				ADD_OBJ(104,UNSTABLE);
+				ADD_OBJ(105, STABLE);
+				ADD_OBJ(744, STABLE);
+				ADD_OBJ(915, STABLE);
+				// early version of the end trigger. It does not work at all anymore. 
+				ADD_OBJ(1931, STABLE);
+				// State block with no number?
+				ADD_OBJ(3655, STABLE);
 
-					auto spr = CCSprite::create("TriggerLabel.png"_spr);
-					spr->setScale(0.4f);
-					EditorTabUtils::setTabIcons(toggler, spr, spr);
-					return EditorTabUtils::createEditButtonBar(items, ui);
-					}, [](EditorUI*, bool state, CCNode*) {
-				}); 
-			}
+				auto spr = CCSprite::create("TriggerLabel.png"_spr);
+				spr->setScale(0.4f);
+				EditorTabUtils::setTabIcons(toggler, spr, spr);
+				return EditorTabUtils::createEditButtonBar(items, ui);
+				}, [](EditorUI*, bool state, CCNode*) {
+			}); 
 		}
+		
 		if (separateTab == "Single Tab" && active) {
 			EditorTabs::addTab(this, TabType::BUILD, "allUnlistedObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
 				auto items = CCArray::create();
@@ -474,12 +476,12 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(466, STABLE);
 				// old color Triggers (do not work as fas as I know)
 				// replaced with general all-colors trigger in 2.0
-				ADD_OBJ(29, UNSTABLE);
-				ADD_OBJ(30, UNSTABLE);
+				ADD_OBJ(29, NON_REPLICABLE);
+				ADD_OBJ(30, STABLE);
 				ADD_OBJ(104, UNSTABLE);
-				ADD_OBJ(105, UNSTABLE);
-				ADD_OBJ(744, UNSTABLE);
-				ADD_OBJ(915, UNSTABLE);
+				ADD_OBJ(105, STABLE);
+				ADD_OBJ(744, STABLE);
+				ADD_OBJ(915, STABLE);
 				// early version of the end trigger. It does not work at all anymore. 
 				ADD_OBJ(1931, STABLE);
 				// State block with no number?
@@ -495,6 +497,9 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				return EditorTabUtils::createEditButtonBar(items, ui);
 				}, [](EditorUI*, bool state, CCNode*) {
 			});
+				// fix a bug with object groups
+				//EditButtonBar* allUnlistedObjs = (EditButtonBar*)this->getChildByID("legowiifun.unlisted_objects_in_editor/allUnlistedObjs-bar");
+				//allUnlistedObjs->m_unknown = 14;
 		}
 		return true;
 	}
@@ -506,7 +511,7 @@ void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* 
 	bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
 	bool noUnstable = true;
-	//bool noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
+	// noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
 
 	// if all objects are to be shown, 
 	// or if it is unecessary and !unecessary, 
@@ -517,6 +522,7 @@ void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* 
 		necessary==ObjTypes::NON_REPLICABLE) {
 		//first argument is obj id, 2nd is always 4
 		auto obj=ui->getCreateBtn(objId,4);
+		
 		if (obj && oArr->indexOfObject(obj) == UINT_MAX) {
 			oArr->addObject(obj);
 		}
@@ -528,7 +534,6 @@ class $modify(EditButtonBar) {
 	
 	$override
 	void loadFromItems(CCArray * items, int r, int c, bool unkBool) {
-
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
 
@@ -722,12 +727,12 @@ class $modify(EditButtonBar) {
 		else if (this->getID() == "trigger-tab-bar"&&!ui->m_fields->trigger) {
 			// old color Triggers (do not work as fas as I know)
 			// replaced with general all-colors trigger in 2.0
-			ADD_OBJ(29, UNSTABLE);
-			ADD_OBJ(30, UNSTABLE);
+			ADD_OBJ(29, NON_REPLICABLE);
+			ADD_OBJ(30, STABLE);
 			ADD_OBJ(104, UNSTABLE);
-			ADD_OBJ(105, UNSTABLE);
-			ADD_OBJ(744, UNSTABLE);
-			ADD_OBJ(915, UNSTABLE);
+			ADD_OBJ(105, STABLE);
+			ADD_OBJ(744, STABLE);
+			ADD_OBJ(915, STABLE);
 			// early version of the end trigger. It does not work at all anymore. 
 			ADD_OBJ(1931, STABLE);
 			// State block with no number?
