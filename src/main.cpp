@@ -71,7 +71,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
 		bool noUnstable = true;
-		 //noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
+		// noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
 
 		if (separateTab=="Separate Tabs" && active) {
 			// add the new blocks tab
@@ -258,6 +258,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 					*/
 					for (int i = 1964; i <= 2011; i++) {
 						ADD_OBJ(i, UNSTABLE);
+						geode::log::info("i={}", i);
 					}
 					
 					auto spr = CCSprite::create("PixelLabel.png"_spr);
@@ -297,6 +298,8 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 
 				// solid startPos
 				ADD_OBJ(34, NON_REPLICABLE);
+				// gold coin
+				ADD_OBJ(142, STABLE);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
@@ -317,6 +320,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(104,UNSTABLE);
 				ADD_OBJ(105, STABLE);
 				ADD_OBJ(744, STABLE);
+				ADD_OBJ(900, STABLE);
 				ADD_OBJ(915, STABLE);
 				// early version of the end trigger. It does not work at all anymore. 
 				ADD_OBJ(1931, STABLE);
@@ -481,6 +485,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(104, UNSTABLE);
 				ADD_OBJ(105, STABLE);
 				ADD_OBJ(744, STABLE);
+				ADD_OBJ(900, STABLE);
 				ADD_OBJ(915, STABLE);
 				// early version of the end trigger. It does not work at all anymore. 
 				ADD_OBJ(1931, STABLE);
@@ -488,6 +493,8 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				ADD_OBJ(3655, STABLE);
 				// solid startPos
 				ADD_OBJ(34, NON_REPLICABLE);
+				// gold coin
+				ADD_OBJ(142, STABLE);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
@@ -512,7 +519,7 @@ void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* 
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
 	bool noUnstable = true;
 	// noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
-
+	
 	// if all objects are to be shown, 
 	// or if it is unecessary and !unecessary, 
 	// or if it is nonReplicable
@@ -696,7 +703,9 @@ class $modify(EditButtonBar) {
 			}
 			ui->m_fields->pixel = true;
 		}
-		else if (this->getID() == "collectable-tab-bar"&&!ui->m_fields->collectable) {
+		else if (this->getID() == "collectible-tab-bar"&&!ui->m_fields->collectable) {
+			// gold coin
+			ADD_OBJ(142, STABLE);
 			ui->m_fields->collectable = true;
 		}
 		else if (this->getID() == "icon-tab-bar"&&!ui->m_fields->icon) {
@@ -732,6 +741,7 @@ class $modify(EditButtonBar) {
 			ADD_OBJ(104, UNSTABLE);
 			ADD_OBJ(105, STABLE);
 			ADD_OBJ(744, STABLE);
+			ADD_OBJ(900, STABLE);
 			ADD_OBJ(915, STABLE);
 			// early version of the end trigger. It does not work at all anymore. 
 			ADD_OBJ(1931, STABLE);

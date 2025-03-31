@@ -1,7 +1,13 @@
+# v1.4.1
+ * New Object: Ground 2 color trigger
+ * New Object: Gold secret coin
+	* It disappears when you exit the level, but it could be useful for reference/recreation. 
+	* I will not stop it from disappearing, as I do not want to encourage widespread cheating.
+
 # v1.4.0
  * OLD COLOR TRIGGERS ARE HERE!!!
- * Thank you to Pololak for identifying the exact object that caused the issue, and commenting it out in his fork.
- * I merged a pull request by Ziegenhainy to make the settings more readable. 
+ * Thank you to Pololak for identifying the exact object that caused the issue, and commenting it out in his fork. 
+ * I merged a pull request by Ziegenhainy to make the settings more readable.
 
 # v1.3.5
  * Ported to 2.2074/Geode 4.0.0

@@ -9,4 +9,4 @@ If, for some reason, you want to enable unstable objects, paste this after line 
 			"enable-if": "activate"
 		},
 
-Then enable the commented lines of code 74 and 514 in main.cpp. This is nearly guaranteed to cause the game to crash when entering the level editor.
+Then enable the commented lines of code 74 and 521 in main.cpp. This is nearly guaranteed to cause the game to crash when entering the level editor.

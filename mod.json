@@ -1,6 +1,6 @@
 {
-	"geode": "4.2.0",
-	"version": "v1.4.0",
+	"geode": "4.3.1",
+	"version": "v1.4.1",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -25,8 +25,8 @@
 			"enable-if": "activate"
 		},
 		"separateTab": {
-			"name": "Add objects to...",
-			"description": "Chooses which tab to add the objects on.",
+			"name": "Remove objects from normal tabs",
+			"description": "Chooses where to add the objects.",
 			"type": "string",
 			"enable-if": "activate",
 			"default": "Normal Tabs",
