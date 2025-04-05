@@ -1,3 +1,10 @@
+# v1.4.2
+ * IOS release!
+ * Now you can just hide the Gold coin and nothing else
+	* This was requested by TheOneQGuy
+ * Settings rework
+	* You will have to fix your object selection settings if they were different from the default settings. 
+
 # v1.4.1
  * New Object: Ground 2 color trigger
  * New Object: Gold secret coin

@@ -1,10 +1,11 @@
 {
 	"geode": "4.3.1",
-	"version": "v1.4.1",
+	"version": "v1.4.2",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
-		"mac": "2.2074"
+		"mac": "2.2074",
+		"ios": "2.2074"
 	},
 	"id": "legowiifun.unlisted_objects_in_editor",
 	"name": "Unlisted Objects in Editor",
@@ -17,11 +18,12 @@
 			"type": "bool",
 			"default": true
 		},
-		"doNotInclude": {
-			"name": "Do not include unnecessary ones",
-			"description": "Only adds objects that cannot be replicated using listed objects.",
-			"type": "bool",
-			"default": false,
+		"activeObjs": {
+			"name": "Object sets",
+			"description": "Which object set do you wish to use?",
+			"type": "string",
+			"default": "all stable ones",
+			"one-of": [ "only nonreplicable objects", "all stable objects", "no secret coin" ],
 			"enable-if": "activate"
 		},
 		"separateTab": {
@@ -42,12 +44,12 @@
 	"dependencies": [
 		{
 			"id": "alphalaneous.editortab_api",
-			"version": ">=1.0.6",
+			"version": ">=1.0.14",
 			"importance": "required"
 		},
 		{
 			"id": "geode.node-ids",
-			"version": ">=v1.17.0",
+			"version": ">=v1.20.1",
 			"importance": "required"
 		}
 	],

@@ -1,12 +1,6 @@
 # UnlistedObjectsinEditor
-If, for some reason, you want to enable unstable objects, paste this after line 26 of mod.json:
+If, for some reason, you want to enable unstable objects, replace line 26 of mod.json with this:
 
-		, "removeUnstable":{
-			"name": "Remove unstable blocks",
-			"description": "Removes blocks that are likely to cause the game to crash. I do not recommend turning this off",
-			"type": "bool",
-			"default": true,
-			"enable-if": "activate"
-		},
+	"one-of": [ "only nonreplicable objects", "all stable objects", "no secret coin", "unstable objects" ],
 
-Then enable the commented lines of code 74 and 521 in main.cpp. This is nearly guaranteed to cause the game to crash when entering the level editor.
+This is nearly guaranteed to cause the game to crash when entering the level editor.

@@ -21,7 +21,8 @@ using namespace geode::prelude;
 enum class ObjTypes {
 	NON_REPLICABLE,
 	STABLE,
-	UNSTABLE
+	UNSTABLE,
+	COIN
 };
 
 void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr);
@@ -68,10 +69,12 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		if (!EditorUI::init(layer)) { return false; }
 		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
-		bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
+		std::string mode = Mod::get()->template getSettingValue<std::string>("activeObjs");
+		// if only in nonreplicable
+		bool unecessary = mode=="only nonreplicable objects";
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
-		bool noUnstable = true;
-		// noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
+		// if unstable is allowed
+		bool noUnstable = mode != "unstable objects";
 
 		if (separateTab=="Separate Tabs" && active) {
 			// add the new blocks tab
@@ -299,7 +302,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				// solid startPos
 				ADD_OBJ(34, NON_REPLICABLE);
 				// gold coin
-				ADD_OBJ(142, STABLE);
+				ADD_OBJ(142, COIN);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
@@ -494,7 +497,7 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 				// solid startPos
 				ADD_OBJ(34, NON_REPLICABLE);
 				// gold coin
-				ADD_OBJ(142, STABLE);
+				ADD_OBJ(142, COIN);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
@@ -514,19 +517,25 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 
 // adds an object to an editor tab
 void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr) {
-	
-	bool unecessary = Mod::get()->template getSettingValue<bool>("doNotInclude");
+	// check settings
+	std::string mode = Mod::get()->template getSettingValue<std::string>("activeObjs");
+	// if only in nonreplicable
+	bool unecessary = mode == "only nonreplicable objects";
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
-	bool noUnstable = true;
-	// noUnstable = Mod::get()->template getSettingValue<bool>("removeUnstable");
+	// if unstable is allowed
+	bool noUnstable = mode != "unstable objects";
+	// if the coin is allowed
+	bool coinAllowed = (mode == "all stable objects" || mode == "unstable objects");
 	
 	// if all objects are to be shown, 
 	// or if it is unecessary and !unecessary, 
 	// or if it is nonReplicable
+	// or if it is coin and coinAllowed
 
 	if(!noUnstable||
 		(necessary==ObjTypes::STABLE&&!unecessary)||
-		necessary==ObjTypes::NON_REPLICABLE) {
+		necessary==ObjTypes::NON_REPLICABLE || 
+		(coinAllowed&&necessary==ObjTypes::COIN)) {
 		//first argument is obj id, 2nd is always 4
 		auto obj=ui->getCreateBtn(objId,4);
 		
@@ -541,6 +550,8 @@ class $modify(EditButtonBar) {
 	
 	$override
 	void loadFromItems(CCArray * items, int r, int c, bool unkBool) {
+
+		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
 
@@ -705,7 +716,7 @@ class $modify(EditButtonBar) {
 		}
 		else if (this->getID() == "collectible-tab-bar"&&!ui->m_fields->collectable) {
 			// gold coin
-			ADD_OBJ(142, STABLE);
+			ADD_OBJ(142, COIN);
 			ui->m_fields->collectable = true;
 		}
 		else if (this->getID() == "icon-tab-bar"&&!ui->m_fields->icon) {

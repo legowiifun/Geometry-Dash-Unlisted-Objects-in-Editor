@@ -8,7 +8,7 @@ else()
 endif()
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-project(UnlistedObjectsinEditor VERSION 1.4.1)
+project(UnlistedObjectsinEditor VERSION 1.4.2)
 
 # Set up the mod binary
 add_library(${PROJECT_NAME} SHARED
