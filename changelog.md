@@ -1,3 +1,5 @@
+# v1.4.3
+ * JIT-less IOS support!
 # v1.4.2
  * IOS release!
  * Now you can just hide the Gold coin and nothing else

@@ -1,6 +1,6 @@
 {
-	"geode": "4.3.1",
-	"version": "v1.4.2",
+	"geode": "4.6.0",
+	"version": "v1.4.3",
 	"gd": {
 		"win": "2.2074",
 		"android": "2.2074",
@@ -22,7 +22,7 @@
 			"name": "Object sets",
 			"description": "Which object set do you wish to use?",
 			"type": "string",
-			"default": "all stable objects",
+			"default": "all stable ones",
 			"one-of": [ "only nonreplicable objects", "all stable objects", "no secret coin" ],
 			"enable-if": "activate"
 		},
