@@ -22,7 +22,7 @@
 			"name": "Object sets",
 			"description": "Which object set do you wish to use?",
 			"type": "string",
-			"default": "all stable ones",
+			"default": "all stable objects",
 			"one-of": [ "only nonreplicable objects", "all stable objects", "no secret coin" ],
 			"enable-if": "activate"
 		},
