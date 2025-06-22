@@ -1,3 +1,5 @@
+# v1.4.4
+ * I accidently broke the default settings in the last update
 # v1.4.3
  * JIT-less IOS support!
 # v1.4.2
