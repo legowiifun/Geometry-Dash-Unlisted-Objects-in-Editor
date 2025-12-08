@@ -5,9 +5,6 @@
 #include <Geode/loader/Loader.hpp>
 #include "./main.hpp"
 
-
-
-
 // adds an object to an editor tab
 void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr) {
 	// check settings
