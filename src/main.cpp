@@ -1,5 +1,3 @@
-
-
 /**
  * Include the Geode headers.
  */
