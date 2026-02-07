@@ -296,8 +296,9 @@
 		}
 
 		if (separateTab == "Single Tab" && active) {
-			EditorTabs::addTab(this, TabType::BUILD, "allUnlistedObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
+			alpha::editor_tabs::addTab("allUnlistedObjs"_spr, alpha::editor_tabs::BUILD, [] {
+				auto ui = EditorUI::get();
+				std::vector<Ref<CCNode>> items;
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -458,15 +459,12 @@
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
+				return alpha::editor_tabs::createEditButtonBar(items);
+			}, [] {
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
-				EditorTabUtils::setTabIcons(toggler, spr, spr);
-				return EditorTabUtils::createEditButtonBar(items, ui);
-				}, [](EditorUI*, bool state, CCNode*) {
-					});
-				// fix a bug with object groups
-				//EditButtonBar* allUnlistedObjs = (EditButtonBar*)this->getChildByID("legowiifun.unlisted_objects_in_editor/allUnlistedObjs-bar");
-				//allUnlistedObjs->m_unknown = 14;
+				return spr;
+			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 		}
 		return true;
 	}
