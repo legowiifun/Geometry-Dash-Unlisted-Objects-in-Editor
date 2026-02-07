@@ -34,7 +34,6 @@
 			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
 				std::vector<Ref<CCNode>> items;
-				//auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -69,230 +68,231 @@
 				for (int i = 2808; i <= 2837; i++) {
 					ADD_OBJ(i, STABLE);
 				}
-
-				//auto spr = CCSprite::create("NewBlockLabel.png"_spr);
-				//spr->setScale(0.4f);
-				//EditorTabUtils::setTabIcons(toggler, spr, spr);
 				return alpha::editor_tabs::createEditButtonBar(items);
+			}, [] {
+				auto spr = CCSprite::create("NewBlockLabel.png"_spr);
+				spr->setScale(0.6f);
+				return spr;
+			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			// If you have all stable objects on, add the new Slopes tab
+			if (!unecessary) {
+				alpha::editor_tabs::addTab("newSlopes"_spr, alpha::editor_tabs::BUILD, [] {
+					auto ui = EditorUI::get();
+					std::vector<Ref<CCNode>> items;
+
+					// old grey grid slopes, unknown why replaced
+					ADD_OBJ(289, STABLE);
+					ADD_OBJ(291, STABLE);
+					// other variants of slopes with outlines
+					ADD_OBJ(709, STABLE);
+					ADD_OBJ(710, STABLE);
+					ADD_OBJ(711, STABLE);
+					ADD_OBJ(712, STABLE);
+					ADD_OBJ(726, STABLE);
+					ADD_OBJ(727, STABLE);
+					ADD_OBJ(728, STABLE);
+					ADD_OBJ(729, STABLE);
+					ADD_OBJ(321, STABLE);
+					ADD_OBJ(323, STABLE);
+					ADD_OBJ(331, STABLE);
+					ADD_OBJ(333, STABLE);
+					ADD_OBJ(343, STABLE);
+					ADD_OBJ(345, STABLE);
+					ADD_OBJ(353, STABLE);
+					ADD_OBJ(355, STABLE);
+					ADD_OBJ(337, STABLE);
+					ADD_OBJ(339, STABLE);
+					ADD_OBJ(483, STABLE);
+					ADD_OBJ(484, STABLE);
+					ADD_OBJ(492, STABLE);
+					ADD_OBJ(493, STABLE);
+					ADD_OBJ(651, STABLE);
+					ADD_OBJ(652, STABLE);
+					ADD_OBJ(886, STABLE);
+					ADD_OBJ(887, STABLE);
+					ADD_OBJ(299, STABLE);
+					ADD_OBJ(301, STABLE);
+					ADD_OBJ(309, STABLE);
+					ADD_OBJ(311, STABLE);
+					ADD_OBJ(315, STABLE);
+					ADD_OBJ(317, STABLE);
+
+					return alpha::editor_tabs::createEditButtonBar(items);
 				}, [] {
-						auto spr = CCSprite::create("NewBlockLabel.png"_spr);
-						spr->setScale(0.6f);
-						return spr;
-					}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
-				// If you have all stable objects on, add the new Slopes tab
-				if (!unecessary) {
-					EditorTabs::addTab(this, TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-						auto items = CCArray::create();
+					auto spr = CCSprite::create("SlopeLabel.png"_spr);
+					spr->setScale(0.6f);
+					return spr;
+				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			}
+			// add the tab with 3D lines and better slope outlines
+			alpha::editor_tabs::addTab("newOutlines"_spr, alpha::editor_tabs::BUILD, [] {
+				auto ui = EditorUI::get();
+				std::vector<Ref<CCNode>> items;
 
-						// old grey grid slopes, unknown why replaced
-						ADD_OBJ(289, STABLE);
-						ADD_OBJ(291, STABLE);
-						// other variants of slopes with outlines
-						ADD_OBJ(709, STABLE);
-						ADD_OBJ(710, STABLE);
-						ADD_OBJ(711, STABLE);
-						ADD_OBJ(712, STABLE);
-						ADD_OBJ(726, STABLE);
-						ADD_OBJ(727, STABLE);
-						ADD_OBJ(728, STABLE);
-						ADD_OBJ(729, STABLE);
-						ADD_OBJ(321, STABLE);
-						ADD_OBJ(323, STABLE);
-						ADD_OBJ(331, STABLE);
-						ADD_OBJ(333, STABLE);
-						ADD_OBJ(343, STABLE);
-						ADD_OBJ(345, STABLE);
-						ADD_OBJ(353, STABLE);
-						ADD_OBJ(355, STABLE);
-						ADD_OBJ(337, STABLE);
-						ADD_OBJ(339, STABLE);
-						ADD_OBJ(483, STABLE);
-						ADD_OBJ(484, STABLE);
-						ADD_OBJ(492, STABLE);
-						ADD_OBJ(493, STABLE);
-						ADD_OBJ(651, STABLE);
-						ADD_OBJ(652, STABLE);
-						ADD_OBJ(886, STABLE);
-						ADD_OBJ(887, STABLE);
-						ADD_OBJ(299, STABLE);
-						ADD_OBJ(301, STABLE);
-						ADD_OBJ(309, STABLE);
-						ADD_OBJ(311, STABLE);
-						ADD_OBJ(315, STABLE);
-						ADD_OBJ(317, STABLE);
+				// alternate basic slope outlines
+				// fit with blocks better
+				ADD_OBJ(665, NON_REPLICABLE);
+				ADD_OBJ(666, NON_REPLICABLE);
+				// 3D lines with hitboxes
+				ADD_OBJ(1561, NON_REPLICABLE);
+				ADD_OBJ(1562, NON_REPLICABLE);
+				ADD_OBJ(1563, NON_REPLICABLE);
+				ADD_OBJ(1564, NON_REPLICABLE);
+				ADD_OBJ(1565, NON_REPLICABLE);
+				ADD_OBJ(1566, NON_REPLICABLE);
+				ADD_OBJ(1567, NON_REPLICABLE);
+				ADD_OBJ(1568, NON_REPLICABLE);
+				ADD_OBJ(1569, NON_REPLICABLE);
 
-						auto spr = CCSprite::create("SlopeLabel.png"_spr);
-						spr->setScale(0.4f);
-						EditorTabUtils::setTabIcons(toggler, spr, spr);
-						return EditorTabUtils::createEditButtonBar(items, ui);
-						}, [](EditorUI*, bool state, CCNode*) {
-							});
-				}
-				// add the tab with 3D lines and better slope outlines
-				EditorTabs::addTab(this, TabType::BUILD, "NewOutlines"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-					auto items = CCArray::create();
+				return alpha::editor_tabs::createEditButtonBar(items);
+			}, [] {
+				auto spr = CCSprite::create("3DLabel.png"_spr);
+				spr->setScale(0.6f);
+				return spr;
+			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 
-					// alternate basic slope outlines
-					// fit with blocks better
-					ADD_OBJ(665, NON_REPLICABLE);
-					ADD_OBJ(666, NON_REPLICABLE);
-					// 3D lines with hitboxes
-					ADD_OBJ(1561, NON_REPLICABLE);
-					ADD_OBJ(1562, NON_REPLICABLE);
-					ADD_OBJ(1563, NON_REPLICABLE);
-					ADD_OBJ(1564, NON_REPLICABLE);
-					ADD_OBJ(1565, NON_REPLICABLE);
-					ADD_OBJ(1566, NON_REPLICABLE);
-					ADD_OBJ(1567, NON_REPLICABLE);
-					ADD_OBJ(1568, NON_REPLICABLE);
-					ADD_OBJ(1569, NON_REPLICABLE);
+			// If you have all stable objects on, add a tab with more spikes and sawblades
+			if (!unecessary) {
+				alpha::editor_tabs::addTab("newHazards"_spr, alpha::editor_tabs::BUILD, [] {
+					auto ui = EditorUI::get();
+					std::vector<Ref<CCNode>> items;
 
-					auto spr = CCSprite::create("3DLabel.png"_spr);
-					spr->setScale(0.8f);
-					EditorTabUtils::setTabIcons(toggler, spr, spr);
-					return EditorTabUtils::createEditButtonBar(items, ui);
-					}, [](EditorUI*, bool state, CCNode*) {
-						});
+					// old ground spike, replaced with colorable one
+					ADD_OBJ(9, STABLE);
+					// old curve spikes, replaced with colorable one
+					ADD_OBJ(61, STABLE);
+					ADD_OBJ(243, STABLE);
+					ADD_OBJ(244, STABLE);
+					ADD_OBJ(366, STABLE);
+					ADD_OBJ(367, STABLE);
+					ADD_OBJ(368, STABLE);
+					// old fake spikes, unknown why replaced
+					ADD_OBJ(191, STABLE);
+					ADD_OBJ(198, STABLE);
+					ADD_OBJ(199, STABLE);
+					ADD_OBJ(393, STABLE);
+					// old spiky spikes, replaced with colorable one
+					ADD_OBJ(363, STABLE);
+					ADD_OBJ(364, STABLE);
+					ADD_OBJ(365, STABLE);
+					// old bigger-curve spikes, replaced with colorable one
+					ADD_OBJ(446, STABLE);
+					ADD_OBJ(447, STABLE);
+					// old block-on-top spikes, replaced with colorable one
+					ADD_OBJ(667, STABLE);
+					ADD_OBJ(989, STABLE);
+					ADD_OBJ(991, STABLE);
+					ADD_OBJ(720, STABLE);
+					// old spike-on-top spikes, replaced with colorable ones
+					ADD_OBJ(421, STABLE);
+					ADD_OBJ(422, STABLE);
+					ADD_OBJ(768, STABLE);
+					// old sawblades, replaced with colorable ones
+					ADD_OBJ(88, STABLE);
+					ADD_OBJ(89, STABLE);
+					ADD_OBJ(98, STABLE);
+					ADD_OBJ(397, STABLE);
+					ADD_OBJ(398, STABLE);
+					ADD_OBJ(399, STABLE);
 
-					// If you have all stable objects on, add a tab with more spikes and sawblades
-					if (!unecessary) {
-						EditorTabs::addTab(this, TabType::BUILD, "NewHazards"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-							auto items = CCArray::create();
+					return alpha::editor_tabs::createEditButtonBar(items);
+				}, [] {
+					auto spr = CCSprite::create("SpikeLabel.png"_spr);
+					spr->setScale(0.6f);
+					return spr;
+				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 
-							// old ground spike, replaced with colorable one
-							ADD_OBJ(9, STABLE);
-							// old curve spikes, replaced with colorable one
-							ADD_OBJ(61, STABLE);
-							ADD_OBJ(243, STABLE);
-							ADD_OBJ(244, STABLE);
-							ADD_OBJ(366, STABLE);
-							ADD_OBJ(367, STABLE);
-							ADD_OBJ(368, STABLE);
-							// old fake spikes, unknown why replaced
-							ADD_OBJ(191, STABLE);
-							ADD_OBJ(198, STABLE);
-							ADD_OBJ(199, STABLE);
-							ADD_OBJ(393, STABLE);
-							// old spiky spikes, replaced with colorable one
-							ADD_OBJ(363, STABLE);
-							ADD_OBJ(364, STABLE);
-							ADD_OBJ(365, STABLE);
-							// old bigger-curve spikes, replaced with colorable one
-							ADD_OBJ(446, STABLE);
-							ADD_OBJ(447, STABLE);
-							// old block-on-top spikes, replaced with colorable one
-							ADD_OBJ(667, STABLE);
-							ADD_OBJ(989, STABLE);
-							ADD_OBJ(991, STABLE);
-							ADD_OBJ(720, STABLE);
-							// old spike-on-top spikes, replaced with colorable ones
-							ADD_OBJ(421, STABLE);
-							ADD_OBJ(422, STABLE);
-							ADD_OBJ(768, STABLE);
-							// old sawblades, replaced with colorable ones
-							ADD_OBJ(88, STABLE);
-							ADD_OBJ(89, STABLE);
-							ADD_OBJ(98, STABLE);
-							ADD_OBJ(397, STABLE);
-							ADD_OBJ(398, STABLE);
-							ADD_OBJ(399, STABLE);
-
-							auto spr = CCSprite::create("SpikeLabel.png"_spr);
-							spr->setScale(0.4f);
-							EditorTabUtils::setTabIcons(toggler, spr, spr);
-							return EditorTabUtils::createEditButtonBar(items, ui);
-							}, [](EditorUI*, bool state, CCNode*) {
-								});
+			}
+			// if unstable objects are available, add the tab with way too many pixel objects
+			if (!noUnstable) {
+				alpha::editor_tabs::addTab("newPixels"_spr, alpha::editor_tabs::BUILD, [] {
+					auto ui = EditorUI::get();
+					std::vector<Ref<CCNode>> items;
+					/*
+						1964-2011 are random pixels
+						there are so many of these
+						the exact same as one of the ones
+						in the pixel blocks tab
+						this is much easier to write for adding them to the editor
+					*/
+					for (int i = 1964; i <= 2011; i++) {
+						ADD_OBJ(i, UNSTABLE);
+						geode::log::info("i={}", i);
 					}
-					// if unstable objects are available, add the tab with way too many pixel objects
-					if (!noUnstable) {
-						EditorTabs::addTab(this, TabType::BUILD, "NewPixels"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-							auto items = CCArray::create();
 
-							/*
-								1964-2011 are random pixels
-								there are so many of these
-								the exact same as one of the ones
-								in the pixel blocks tab
-								this is much easier to write for adding them to the editor
-							*/
-							for (int i = 1964; i <= 2011; i++) {
-								ADD_OBJ(i, UNSTABLE);
-								geode::log::info("i={}", i);
-							}
+					return alpha::editor_tabs::createEditButtonBar(items);
+				}, [] {
+					auto spr = CCSprite::create("PixelLabel.png"_spr);
+					spr->setScale(0.6f);
+					return spr;
+				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			}
+			// If you have all stable objects on, add the tab with new deco objects
+			if (!unecessary) {
+				alpha::editor_tabs::addTab("newDeco"_spr, alpha::editor_tabs::BUILD, [] {
+					auto ui = EditorUI::get();
+					std::vector<Ref<CCNode>> items;
 
-							auto spr = CCSprite::create("PixelLabel.png"_spr);
-							spr->setScale(0.6f);
-							EditorTabUtils::setTabIcons(toggler, spr, spr);
-							return EditorTabUtils::createEditButtonBar(items, ui);
-							}, [](EditorUI* ui, bool state, CCNode*) {
-								UnlistedObjectsUI* unlistedUI = reinterpret_cast<UnlistedObjectsUI*>(ui);
+					// old version of circle, unknown why replaced
+					ADD_OBJ(725, STABLE);
+					// old bush versions, unknown why replaced
+					ADD_OBJ(461, STABLE);
+					ADD_OBJ(462, STABLE);
+					ADD_OBJ(463, STABLE);
+					ADD_OBJ(464, STABLE);
+					ADD_OBJ(465, STABLE);
+					ADD_OBJ(466, STABLE);
 
-								});
-					}
-					// If you have all stable objects on, add the tab with new deco objects
-					if (!unecessary) {
-						EditorTabs::addTab(this, TabType::BUILD, "newDeco"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-							auto items = CCArray::create();
+					return alpha::editor_tabs::createEditButtonBar(items);
+				}, [] {
+					auto spr = CCSprite::create("BushLabel.png"_spr);
+					spr->setScale(0.6f);
+					return spr;
+				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			}
+			// add the tab with unusual objects
+			alpha::editor_tabs::addTab("unusualObjs"_spr, alpha::editor_tabs::BUILD, [] {
+				auto ui = EditorUI::get();
+				std::vector<Ref<CCNode>> items;
 
-							// old version of circle, unknown why replaced
-							ADD_OBJ(725, STABLE);
-							// old bush versions, unknown why replaced
-							ADD_OBJ(461, STABLE);
-							ADD_OBJ(462, STABLE);
-							ADD_OBJ(463, STABLE);
-							ADD_OBJ(464, STABLE);
-							ADD_OBJ(465, STABLE);
-							ADD_OBJ(466, STABLE);
+				// solid startPos
+				ADD_OBJ(34, NON_REPLICABLE);
+				// gold coin
+				ADD_OBJ(142, COIN);
+				// other weird block (looks like it uses a weird mishmash of textures)
+				ADD_OBJ(3800, NON_REPLICABLE);
 
-							auto spr = CCSprite::create("BushLabel.png"_spr);
-							spr->setScale(0.3f);
-							EditorTabUtils::setTabIcons(toggler, spr, spr);
-							return EditorTabUtils::createEditButtonBar(items, ui);
-							}, [](EditorUI*, bool state, CCNode*) {
-								});
-					}
-					// add the tab with unusual objects
-					EditorTabs::addTab(this, TabType::BUILD, "UnusualObjs"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-						auto items = CCArray::create();
+				return alpha::editor_tabs::createEditButtonBar(items);
+			}, [] {
+				auto spr = CCSprite::create("StartPosLabel.png"_spr);
+				spr->setScale(0.6f);
+				return spr;
+			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			
+			// add the tab with more triggers
+			alpha::editor_tabs::addTab("newTriggers"_spr, alpha::editor_tabs::BUILD, [] {
+				auto ui = EditorUI::get();
+				std::vector<Ref<CCNode>> items;
+				// old color Triggers
+				// replaced with general all-colors trigger in 2.0
+				ADD_OBJ(29, NON_REPLICABLE);
+				ADD_OBJ(30, STABLE);
+				ADD_OBJ(104, UNSTABLE);
+				ADD_OBJ(105, STABLE);
+				ADD_OBJ(744, STABLE);
+				ADD_OBJ(900, STABLE);
+				ADD_OBJ(915, STABLE);
+				// early version of the end trigger. It does not work at all anymore. 
+				ADD_OBJ(1931, STABLE);
+				// State block with no number?
+				ADD_OBJ(3655, STABLE);
 
-						// solid startPos
-						ADD_OBJ(34, NON_REPLICABLE);
-						// gold coin
-						ADD_OBJ(142, COIN);
-						// other weird block (looks like it uses a weird mishmash of textures)
-						ADD_OBJ(3800, NON_REPLICABLE);
-
-						auto spr = CCSprite::create("StartPosLabel.png"_spr);
-						spr->setScale(0.6f);
-						EditorTabUtils::setTabIcons(toggler, spr, spr);
-						return EditorTabUtils::createEditButtonBar(items, ui);
-						}, [](EditorUI*, bool state, CCNode*) {
-							});
-						// add the tab with more triggers
-
-						EditorTabs::addTab(this, TabType::BUILD, "newTriggers"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-							auto items = CCArray::create();
-							// old color Triggers
-							// replaced with general all-colors trigger in 2.0
-							ADD_OBJ(29, NON_REPLICABLE);
-							ADD_OBJ(30, STABLE);
-							ADD_OBJ(104, UNSTABLE);
-							ADD_OBJ(105, STABLE);
-							ADD_OBJ(744, STABLE);
-							ADD_OBJ(900, STABLE);
-							ADD_OBJ(915, STABLE);
-							// early version of the end trigger. It does not work at all anymore. 
-							ADD_OBJ(1931, STABLE);
-							// State block with no number?
-							ADD_OBJ(3655, STABLE);
-
-							auto spr = CCSprite::create("TriggerLabel.png"_spr);
-							spr->setScale(0.4f);
-							EditorTabUtils::setTabIcons(toggler, spr, spr);
-							return EditorTabUtils::createEditButtonBar(items, ui);
-							}, [](EditorUI*, bool state, CCNode*) {
-								});
+				return alpha::editor_tabs::createEditButtonBar(items);
+			}, [] {
+				auto spr = CCSprite::create("TriggerLabel.png"_spr);
+				spr->setScale(0.6f);
+				return spr;
+			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 		}
 
 		if (separateTab == "Single Tab" && active) {
