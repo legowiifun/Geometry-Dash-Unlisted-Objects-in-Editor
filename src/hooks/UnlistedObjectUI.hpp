@@ -7,7 +7,7 @@
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/loader/Loader.hpp>
 
-#include <alphalaneous.editortab_api/include/EditorTabs.hpp>
+#include <alphalaneous.editortab_api/include/EditorTabAPI.hpp>
 #include "../main.hpp"
 
  /**

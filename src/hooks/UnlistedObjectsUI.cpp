@@ -1,5 +1,7 @@
 #include "./UnlistedObjectUI.hpp"
-
+// define a macro for adding an object
+// I know this is different from the version in EditButtonBarUnlistedObjs.hpp - I did not want to rewrite that much busywork code
+#define ADD_OBJ(id, type) items=addObj(static_cast<EditorUI*>(ui), id, ObjTypes::type, items)
 	bool UnlistedObjectsUI::init(LevelEditorLayer * layer) {
 		// set the booleans to false - see above
 		m_fields->block = false;
@@ -17,6 +19,7 @@
 		m_fields->trigger = false;
 
 		if (!EditorUI::init(layer)) { return false; }
+		
 		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 		std::string mode = Mod::get()->template getSettingValue<std::string>("activeObjs");
@@ -28,9 +31,10 @@
 
 		if (separateTab == "Separate Tabs" && active) {
 			// add the new blocks tab
-			EditorTabs::addTab(this, TabType::BUILD, "newBlocks"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
-				auto items = CCArray::create();
-
+			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [] {
+				auto ui = EditorUI::get();
+				std::vector<Ref<CCNode>> items;
+				//auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -66,12 +70,15 @@
 					ADD_OBJ(i, STABLE);
 				}
 
-				auto spr = CCSprite::create("NewBlockLabel.png"_spr);
-				spr->setScale(0.4f);
-				EditorTabUtils::setTabIcons(toggler, spr, spr);
-				return EditorTabUtils::createEditButtonBar(items, ui);
-				}, [](EditorUI*, bool state, CCNode*) {
-					});
+				//auto spr = CCSprite::create("NewBlockLabel.png"_spr);
+				//spr->setScale(0.4f);
+				//EditorTabUtils::setTabIcons(toggler, spr, spr);
+				return alpha::editor_tabs::createEditButtonBar(items);
+				}, [] {
+						auto spr = CCSprite::create("NewBlockLabel.png"_spr);
+						spr->setScale(0.6f);
+						return spr;
+					}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 				// If you have all stable objects on, add the new Slopes tab
 				if (!unecessary) {
 					EditorTabs::addTab(this, TabType::BUILD, "newSlopes"_spr, [](EditorUI* ui, CCMenuItemToggler* toggler)->CCNode* {
