@@ -30,6 +30,7 @@
 			// add the new blocks tab
 			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
+				geode::log::debug("EditorUI={}",EditorUI::get());
 				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);

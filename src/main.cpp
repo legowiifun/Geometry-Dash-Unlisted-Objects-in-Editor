@@ -32,6 +32,7 @@ void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* 
 		(coinAllowed && necessary == ObjTypes::COIN)) {
 		//CRASHES HERE!
 		geode::log::debug("getting create button for object ID {}, BG 4", objId);
+		geode::log::debug("UI={}",ui);
 		//first argument is obj id, 2nd is always 4
 		auto obj = ui->getCreateBtn(objId, 4);
 
