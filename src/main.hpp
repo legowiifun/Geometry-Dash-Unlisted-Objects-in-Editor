@@ -13,6 +13,10 @@ enum class ObjTypes {
 	UNSTABLE,
 	COIN
 };
+// define a macro for adding an object
+#define ADD_OBJ(id, type) addObj(static_cast<EditorUI*>(ui), id, ObjTypes::type, items)
+// used as a replacement for Alpha's createEditButtonBar method
+// So I can pass in a CCArray instead of a std::span<geode::Ref<cocos2d::CCNode>>
+EditButtonBar* createEditButtonBar(CCArray* arr);
 // adds an object to an editor tab
 void addObj(EditorUI* ui, int objId, enum ObjTypes necessary, cocos2d::CCArray* oArr);
-std::vector<Ref<CCNode>> addObj(EditorUI* ui, int objId, enum ObjTypes necessary, std::vector<Ref<CCNode>> oArr);

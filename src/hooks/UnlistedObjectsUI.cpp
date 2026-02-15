@@ -1,7 +1,4 @@
 #include "./UnlistedObjectUI.hpp"
-// define a macro for adding an object
-// I know this is different from the version in EditButtonBarUnlistedObjs.hpp - I did not want to rewrite that much busywork code
-#define ADD_OBJ(id, type) items=addObj(static_cast<EditorUI*>(ui), id, ObjTypes::type, items)
 	bool UnlistedObjectsUI::init(LevelEditorLayer * layer) {
 		// set the booleans to false - see above
 		m_fields->block = false;
@@ -33,7 +30,7 @@
 			// add the new blocks tab
 			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
-				std::vector<Ref<CCNode>> items;
+				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -68,7 +65,7 @@
 				for (int i = 2808; i <= 2837; i++) {
 					ADD_OBJ(i, STABLE);
 				}
-				return alpha::editor_tabs::createEditButtonBar(items);
+				return createEditButtonBar(items);
 			}, [] {
 				auto spr = CCSprite::create("NewBlockLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -78,7 +75,7 @@
 			if (!unecessary) {
 				alpha::editor_tabs::addTab("newSlopes"_spr, alpha::editor_tabs::BUILD, [] {
 					auto ui = EditorUI::get();
-					std::vector<Ref<CCNode>> items;
+					auto items = CCArray::create();
 
 					// old grey grid slopes, unknown why replaced
 					ADD_OBJ(289, STABLE);
@@ -117,7 +114,7 @@
 					ADD_OBJ(315, STABLE);
 					ADD_OBJ(317, STABLE);
 
-					return alpha::editor_tabs::createEditButtonBar(items);
+					return createEditButtonBar(items);
 				}, [] {
 					auto spr = CCSprite::create("SlopeLabel.png"_spr);
 					spr->setScale(0.6f);
@@ -127,7 +124,7 @@
 			// add the tab with 3D lines and better slope outlines
 			alpha::editor_tabs::addTab("newOutlines"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
-				std::vector<Ref<CCNode>> items;
+				auto items = CCArray::create();
 
 				// alternate basic slope outlines
 				// fit with blocks better
@@ -144,7 +141,7 @@
 				ADD_OBJ(1568, NON_REPLICABLE);
 				ADD_OBJ(1569, NON_REPLICABLE);
 
-				return alpha::editor_tabs::createEditButtonBar(items);
+				return createEditButtonBar(items);
 			}, [] {
 				auto spr = CCSprite::create("3DLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -155,7 +152,7 @@
 			if (!unecessary) {
 				alpha::editor_tabs::addTab("newHazards"_spr, alpha::editor_tabs::BUILD, [] {
 					auto ui = EditorUI::get();
-					std::vector<Ref<CCNode>> items;
+					auto items = CCArray::create();
 
 					// old ground spike, replaced with colorable one
 					ADD_OBJ(9, STABLE);
@@ -195,7 +192,7 @@
 					ADD_OBJ(398, STABLE);
 					ADD_OBJ(399, STABLE);
 
-					return alpha::editor_tabs::createEditButtonBar(items);
+					return createEditButtonBar(items);
 				}, [] {
 					auto spr = CCSprite::create("SpikeLabel.png"_spr);
 					spr->setScale(0.6f);
@@ -207,7 +204,7 @@
 			if (!noUnstable) {
 				alpha::editor_tabs::addTab("newPixels"_spr, alpha::editor_tabs::BUILD, [] {
 					auto ui = EditorUI::get();
-					std::vector<Ref<CCNode>> items;
+					auto items = CCArray::create();
 					/*
 						1964-2011 are random pixels
 						there are so many of these
@@ -220,7 +217,7 @@
 						geode::log::info("i={}", i);
 					}
 
-					return alpha::editor_tabs::createEditButtonBar(items);
+					return createEditButtonBar(items);
 				}, [] {
 					auto spr = CCSprite::create("PixelLabel.png"_spr);
 					spr->setScale(0.6f);
@@ -231,7 +228,7 @@
 			if (!unecessary) {
 				alpha::editor_tabs::addTab("newDeco"_spr, alpha::editor_tabs::BUILD, [] {
 					auto ui = EditorUI::get();
-					std::vector<Ref<CCNode>> items;
+					auto items = CCArray::create();
 
 					// old version of circle, unknown why replaced
 					ADD_OBJ(725, STABLE);
@@ -243,7 +240,7 @@
 					ADD_OBJ(465, STABLE);
 					ADD_OBJ(466, STABLE);
 
-					return alpha::editor_tabs::createEditButtonBar(items);
+					return createEditButtonBar(items);
 				}, [] {
 					auto spr = CCSprite::create("BushLabel.png"_spr);
 					spr->setScale(0.6f);
@@ -253,7 +250,7 @@
 			// add the tab with unusual objects
 			alpha::editor_tabs::addTab("unusualObjs"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
-				std::vector<Ref<CCNode>> items;
+				auto items = CCArray::create();
 
 				// solid startPos
 				ADD_OBJ(34, NON_REPLICABLE);
@@ -262,7 +259,7 @@
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
-				return alpha::editor_tabs::createEditButtonBar(items);
+				return createEditButtonBar(items);
 			}, [] {
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -272,7 +269,7 @@
 			// add the tab with more triggers
 			alpha::editor_tabs::addTab("newTriggers"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
-				std::vector<Ref<CCNode>> items;
+				auto items = CCArray::create();
 				// old color Triggers
 				// replaced with general all-colors trigger in 2.0
 				ADD_OBJ(29, NON_REPLICABLE);
@@ -287,7 +284,7 @@
 				// State block with no number?
 				ADD_OBJ(3655, STABLE);
 
-				return alpha::editor_tabs::createEditButtonBar(items);
+				return createEditButtonBar(items);
 			}, [] {
 				auto spr = CCSprite::create("TriggerLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -298,7 +295,7 @@
 		if (separateTab == "Single Tab" && active) {
 			alpha::editor_tabs::addTab("allUnlistedObjs"_spr, alpha::editor_tabs::BUILD, [] {
 				auto ui = EditorUI::get();
-				std::vector<Ref<CCNode>> items;
+				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
 				ADD_OBJ(369, STABLE);
@@ -459,7 +456,7 @@
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
 
-				return alpha::editor_tabs::createEditButtonBar(items);
+				return createEditButtonBar(items);
 			}, [] {
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
@@ -467,4 +464,9 @@
 			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
 		}
 		return true;
+	}
+
+	CreateMenuItem* UnlistedObjectsUI::getCreateBtn(int id, int bg) {
+		geode::log::debug("Calling getCreateBtn for id {}", id);
+		return EditorUI::getCreateBtn(id, bg);
 	}

@@ -40,4 +40,5 @@ class $modify(UnlistedObjectsUI, EditorUI) {
 		std::vector<CreateMenuItem*> buttonFix;
 	};
     bool init(LevelEditorLayer * layer);
+	CreateMenuItem* getCreateBtn(int id, int bg);
 };
