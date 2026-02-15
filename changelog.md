@@ -1,3 +1,6 @@
+# v1.4.5
+ * Update to EditorTabAPI V2
+ * 2.2081 Support
 # v1.4.4
  * I accidently broke the default settings in the last update
 # v1.4.3
