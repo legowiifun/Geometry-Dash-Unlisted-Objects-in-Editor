@@ -6,7 +6,7 @@
 #include "./main.hpp"
 
 EditButtonBar* createEditButtonBar(CCArray* arr) {
-	return EditButtonBar::create(arr, {}, -1, false, GameManager::get()->getIntGameVariable("0050"), GameManager::get()->getIntGameVariable("0049"));
+	return EditButtonBar::create(arr, {}, -1, false, GameManager::get()->getIntGameVariable("0049"), GameManager::get()->getIntGameVariable("0050"));
 }
 
 // adds an object to an editor tab
