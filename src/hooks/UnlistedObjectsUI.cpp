@@ -28,9 +28,8 @@
 
 		if (separateTab == "Separate Tabs" && active) {
 			// add the new blocks tab
-			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [] {
-				auto ui = EditorUI::get();
-				geode::log::debug("EditorUI={}",EditorUI::get());
+			alpha::editor_tabs::addTab("newBlocks"_spr, alpha::editor_tabs::BUILD, [this] {
+				auto ui = this;
 				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
@@ -71,11 +70,11 @@
 				auto spr = CCSprite::create("NewBlockLabel.png"_spr);
 				spr->setScale(0.6f);
 				return spr;
-			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			});
 			// If you have all stable objects on, add the new Slopes tab
 			if (!unecessary) {
-				alpha::editor_tabs::addTab("newSlopes"_spr, alpha::editor_tabs::BUILD, [] {
-					auto ui = EditorUI::get();
+				alpha::editor_tabs::addTab("newSlopes"_spr, alpha::editor_tabs::BUILD, [this] {
+					auto ui = this;
 					auto items = CCArray::create();
 
 					// old grey grid slopes, unknown why replaced
@@ -120,11 +119,11 @@
 					auto spr = CCSprite::create("SlopeLabel.png"_spr);
 					spr->setScale(0.6f);
 					return spr;
-				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+				});
 			}
 			// add the tab with 3D lines and better slope outlines
-			alpha::editor_tabs::addTab("newOutlines"_spr, alpha::editor_tabs::BUILD, [] {
-				auto ui = EditorUI::get();
+			alpha::editor_tabs::addTab("newOutlines"_spr, alpha::editor_tabs::BUILD, [this] {
+				auto ui = this;
 				auto items = CCArray::create();
 
 				// alternate basic slope outlines
@@ -147,12 +146,12 @@
 				auto spr = CCSprite::create("3DLabel.png"_spr);
 				spr->setScale(0.6f);
 				return spr;
-			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			});
 
 			// If you have all stable objects on, add a tab with more spikes and sawblades
 			if (!unecessary) {
-				alpha::editor_tabs::addTab("newHazards"_spr, alpha::editor_tabs::BUILD, [] {
-					auto ui = EditorUI::get();
+				alpha::editor_tabs::addTab("newHazards"_spr, alpha::editor_tabs::BUILD, [this] {
+					auto ui = this;
 					auto items = CCArray::create();
 
 					// old ground spike, replaced with colorable one
@@ -198,13 +197,13 @@
 					auto spr = CCSprite::create("SpikeLabel.png"_spr);
 					spr->setScale(0.6f);
 					return spr;
-				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+				});
 
 			}
 			// if unstable objects are available, add the tab with way too many pixel objects
 			if (!noUnstable) {
-				alpha::editor_tabs::addTab("newPixels"_spr, alpha::editor_tabs::BUILD, [] {
-					auto ui = EditorUI::get();
+				alpha::editor_tabs::addTab("newPixels"_spr, alpha::editor_tabs::BUILD, [this] {
+					auto ui = this;
 					auto items = CCArray::create();
 					/*
 						1964-2011 are random pixels
@@ -223,12 +222,12 @@
 					auto spr = CCSprite::create("PixelLabel.png"_spr);
 					spr->setScale(0.6f);
 					return spr;
-				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+				});
 			}
 			// If you have all stable objects on, add the tab with new deco objects
 			if (!unecessary) {
-				alpha::editor_tabs::addTab("newDeco"_spr, alpha::editor_tabs::BUILD, [] {
-					auto ui = EditorUI::get();
+				alpha::editor_tabs::addTab("newDeco"_spr, alpha::editor_tabs::BUILD, [this] {
+					auto ui = this;
 					auto items = CCArray::create();
 
 					// old version of circle, unknown why replaced
@@ -246,11 +245,11 @@
 					auto spr = CCSprite::create("BushLabel.png"_spr);
 					spr->setScale(0.6f);
 					return spr;
-				}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+				});
 			}
 			// add the tab with unusual objects
-			alpha::editor_tabs::addTab("unusualObjs"_spr, alpha::editor_tabs::BUILD, [] {
-				auto ui = EditorUI::get();
+			alpha::editor_tabs::addTab("unusualObjs"_spr, alpha::editor_tabs::BUILD, [this] {
+				auto ui = this;
 				auto items = CCArray::create();
 
 				// solid startPos
@@ -265,11 +264,11 @@
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
 				return spr;
-			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			});
 			
 			// add the tab with more triggers
-			alpha::editor_tabs::addTab("newTriggers"_spr, alpha::editor_tabs::BUILD, [] {
-				auto ui = EditorUI::get();
+			alpha::editor_tabs::addTab("newTriggers"_spr, alpha::editor_tabs::BUILD, [this] {
+				auto ui = this;
 				auto items = CCArray::create();
 				// old color Triggers
 				// replaced with general all-colors trigger in 2.0
@@ -290,12 +289,12 @@
 				auto spr = CCSprite::create("TriggerLabel.png"_spr);
 				spr->setScale(0.6f);
 				return spr;
-			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			});
 		}
 
 		if (separateTab == "Single Tab" && active) {
-			alpha::editor_tabs::addTab("allUnlistedObjs"_spr, alpha::editor_tabs::BUILD, [] {
-				auto ui = EditorUI::get();
+			alpha::editor_tabs::addTab("allUnlistedObjs"_spr, alpha::editor_tabs::BUILD, [this] {
+				auto ui = this;
 				auto items = CCArray::create();
 				// old half-slab, replaced with colorable one
 				ADD_OBJ(40, NON_REPLICABLE);
@@ -462,13 +461,7 @@
 				auto spr = CCSprite::create("StartPosLabel.png"_spr);
 				spr->setScale(0.6f);
 				return spr;
-			}, [](bool state, auto tab) {}, [](int rows, int cols, auto tab) {});
+			});
 		}
 		return true;
-	}
-
-	CreateMenuItem* UnlistedObjectsUI::getCreateBtn(int id, int bg) {
-		CreateMenuItem* item=EditorUI::getCreateBtn(id, bg);
-		geode::log::debug("Calling getCreateBtn for id {}, with bg {}", id, bg);
-		return item;
 	}
