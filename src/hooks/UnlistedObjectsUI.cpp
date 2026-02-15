@@ -467,6 +467,7 @@
 	}
 
 	CreateMenuItem* UnlistedObjectsUI::getCreateBtn(int id, int bg) {
-		geode::log::debug("Calling getCreateBtn for id {}", id);
-		return EditorUI::getCreateBtn(id, bg);
+		CreateMenuItem* item=EditorUI::getCreateBtn(id, bg);
+		geode::log::debug("Calling getCreateBtn for id {}, with bg {}", id, bg);
+		return item;
 	}
