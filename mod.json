@@ -1,5 +1,5 @@
 {
-	"geode": "5.0.0-beta.1",
+	"geode": "5.0.1",
 	"version": "v1.4.5",
 	"gd": {
 		"win": "2.2081",
@@ -42,8 +42,8 @@
 	},
 	"tags": [ "editor", "offline", "enhancement", "interface" ],
 	"dependencies": {
-  		"alphalaneous.editortab_api": ">=2.0.0",
-  		"geode.node-ids": ">=v1.22.0"
+  		"alphalaneous.editortab_api": ">=2.0.3",
+  		"geode.node-ids": ">=v1.23.0"
  	},
 	"links": {
 		"source": "https://github.com/legowiifun/Geometry-Dash-Unlisted-Objects-in-Editor"
