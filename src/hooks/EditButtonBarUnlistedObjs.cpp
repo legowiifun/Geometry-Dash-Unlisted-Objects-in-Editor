@@ -1,21 +1,17 @@
 #include "./EditButtonBarUnlistedObjs.hpp"
 
-
 void EditButtonBarUnlistedObjs::loadFromItems(CCArray * items, int r, int c, bool unkBool) {
-
-	// check settings
 	std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
 
-	UnlistedObjectsUI* ui = static_cast<UnlistedObjectsUI*>(this->getParent());
+	UnlistedObjectsUI* ui = static_cast<UnlistedObjectsUI*>(EditorUI::get());
+
 	if (!active || separateTab != "Normal Tabs") {
 		EditButtonBar::loadFromItems(items, r, c, unkBool);
 		return;
 	}
-	NodeIDs::provideFor(this);
-	geode::log::debug("current ID={}",this->getID());
+
 	if (this->getID() == "block-tab-bar" && !ui->m_fields->block) {
-		geode::log::debug("adding objects to block-tab-bar");
 		// old half-slab, replaced with colorable one
 		ADD_OBJ(40, NON_REPLICABLE);
 		ADD_OBJ(369, STABLE);
@@ -214,5 +210,6 @@ void EditButtonBarUnlistedObjs::loadFromItems(CCArray * items, int r, int c, boo
 		ADD_OBJ(3655, STABLE);
 		ui->m_fields->trigger = true;
 	}
+
 	EditButtonBar::loadFromItems(items, r, c, unkBool);
 }
