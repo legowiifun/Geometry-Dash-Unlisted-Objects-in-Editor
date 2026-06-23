@@ -1,21 +1,6 @@
 #include "./UnlistedObjectUI.hpp"
-	bool UnlistedObjectsUI::init(LevelEditorLayer * layer) {
-		// set the booleans to false - see above
-		m_fields->block = false;
-		m_fields->outline = false;
-		m_fields->slope = false;
-		m_fields->hazard = false;
-		m_fields->threeD = false;
-		m_fields->portal = false;
-		m_fields->monster = false;
-		m_fields->pixel = false;
-		m_fields->collectable = false;
-		m_fields->icon = false;
-		m_fields->deco = false;
-		m_fields->sawblade = false;
-		m_fields->trigger = false;
-
-		if (!EditorUI::init(layer)) { return false; }
+	bool UnlistedObjectsUI::init(LevelEditorLayer* editorLayer) {
+		if (!EditorUI::init(editorLayer)) return false;
 		
 		// check settings
 		std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
