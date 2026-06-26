@@ -1,21 +1,26 @@
 #pragma once
-
-/**
- * Include the Geode headers.
- */
 #include <Geode/Geode.hpp>
 #include <Geode/modify/EditButtonBar.hpp>
 #include <Geode/loader/Loader.hpp>
 
 #include "../main.hpp"
-#include "./UnlistedObjectUI.hpp"
+#include "UnlistedObjectUI.hpp"
 
- /**
-  * Brings cocos2d and all Geode namespaces
-  * to the current scope.
-  */
 using namespace geode::prelude;
-// modify the EditButtonBar
+
 class $modify(EditButtonBarUnlistedObjs, EditButtonBar) {
-	void loadFromItems(CCArray * items, int r, int c, bool unkBool);
+  struct Fields {
+    bool m_block;
+    bool m_outline;
+    bool m_slope;
+    bool m_hazard;
+    bool m_threeD;
+    bool m_pixel;
+    bool m_collectable;
+    bool m_deco;
+    bool m_sawblade;
+    bool m_trigger;
+  };
+
+  void loadFromItems(CCArray*, int, int, bool);
 };

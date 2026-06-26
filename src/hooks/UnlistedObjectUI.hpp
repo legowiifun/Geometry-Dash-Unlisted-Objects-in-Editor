@@ -1,8 +1,4 @@
 #pragma once
-
-/**
- * Include the Geode headers.
- */
 #include <Geode/Geode.hpp>
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/loader/Loader.hpp>
@@ -10,34 +6,24 @@
 #include <alphalaneous.editortab_api/include/EditorTabAPI.hpp>
 #include "../main.hpp"
 
- /**
-  * Brings cocos2d and all Geode namespaces
-  * to the current scope.
-  */
 using namespace geode::prelude;
 
- // gets a reference to the editor UI
 class $modify(UnlistedObjectsUI, EditorUI) {
 	struct Fields {
-		// a series of booleans to prevent a bug where objects are duplicated
-		// when they populate in the preexisting EditButtonBars
-		// They are set to false when the EditorUI is loaded, and set to true 
-		// when the tab is loaded for the first time
-		bool block;
-		bool outline;
-		bool slope;
-		bool hazard;
-		bool threeD;
-		bool portal;
-		bool monster;
-		bool pixel;
-		bool collectable;
-		bool icon;
-		bool deco;
-		bool sawblade;
-		bool trigger;
-
-		std::vector<CreateMenuItem*> buttonFix;
+		bool m_block;
+		bool m_outline;
+		bool m_slope;
+		bool m_hazard;
+		bool m_threeD;
+		bool m_portal;
+		bool m_monster;
+		bool m_pixel;
+		bool m_collectable;
+		bool m_icon;
+		bool m_deco;
+		bool m_sawblade;
+		bool m_trigger;
 	};
-    bool init(LevelEditorLayer * layer);
+	
+    bool init(LevelEditorLayer*);
 };

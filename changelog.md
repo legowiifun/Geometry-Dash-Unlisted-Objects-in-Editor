@@ -1,3 +1,5 @@
+# v1.4.6
+ * Reverted back Normal Tabs mode.
 # v1.4.5
  * Update to EditorTabAPI V2
  * 2.2081 Support
