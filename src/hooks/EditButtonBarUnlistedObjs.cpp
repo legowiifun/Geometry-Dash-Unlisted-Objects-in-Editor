@@ -1,6 +1,7 @@
 #include "EditButtonBarUnlistedObjs.hpp"
 
-void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int columns, bool keepPage) {
+void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int columns, bool keepPage) {\
+	// check settings
 	std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
 
@@ -11,6 +12,7 @@ void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int colu
 	auto ui = static_cast<EditorUI*>(this->getParent());
 	if (ui) {
 		if (this->getID() == "block-tab-bar" && !this->m_fields->m_block) {
+			// old half-slab, replaced with colorable one
 			ADD_OBJ(40, NON_REPLICABLE);
 			ADD_OBJ(369, STABLE);
 			ADD_OBJ(370, STABLE);
