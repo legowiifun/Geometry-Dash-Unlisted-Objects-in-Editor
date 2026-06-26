@@ -56,3 +56,16 @@ jobs:
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
+  publish:
+    name: publish builds
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+    needs: ['package']
+    steps:
+      - name: create a release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "legowiifun.unlisted_objects_in_editor.geode"
+          draft: true
+          tag: v1.4.6
