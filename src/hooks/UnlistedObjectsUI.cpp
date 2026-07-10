@@ -243,6 +243,8 @@
 				ADD_OBJ(142, COIN);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
+				// one other weird block (straight up just the pixel art spritesheet)
+				ADD_OBJ(4396, NON_REPLICABLE);
 
 				return createEditButtonBar(items);
 			}, [] {
@@ -440,6 +442,8 @@
 				ADD_OBJ(142, COIN);
 				// other weird block (looks like it uses a weird mishmash of textures)
 				ADD_OBJ(3800, NON_REPLICABLE);
+				// one other weird block (straight up just the pixel art spritesheet)
+				ADD_OBJ(4396, NON_REPLICABLE);
 
 				return createEditButtonBar(items);
 			}, [] {

@@ -50,7 +50,9 @@ void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int colu
 			ADD_OBJ(34, NON_REPLICABLE);
 			// other weird block (looks like it uses a weird mishmash of textures)
 			ADD_OBJ(3800, NON_REPLICABLE);
-
+			// one other weird block (straight up just the pixel art spritesheet)
+			ADD_OBJ(4396, NON_REPLICABLE);
+			
 			this->m_fields->m_block = true;
 		}
 		else if (this->getID() == "outline-tab-bar" && !this->m_fields->m_outline) {
