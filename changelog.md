@@ -1,6 +1,11 @@
+# v1.4.7
+ * 2.2091 Support
+ * Unfortunately, I was unable to get the normal tabs mode working in this update, so it has been temporarily disabled. 
+
 # v1.4.6
  * Reverted back Normal Tabs mode.
 	* Thanks to Pololak for helping with this!
+
 # v1.4.5
  * Update to EditorTabAPI V2
  * 2.2081 Support

@@ -10,11 +10,12 @@
 		bool active = Mod::get()->template getSettingValue<bool>("activate");
 		// if unstable is allowed
 		bool noUnstable = mode != "unstable objects";
+		CCArray* items;
 
 		alpha::editor_tabs::Mode* buildMode = alpha::editor_tabs::getMode(alpha::editor_tabs::Build);
-		CCArray* items;
+		
 		CCSprite* spr;
-		auto ui = this;
+		UnlistedObjectsUI* ui = this;
 		if (separateTab == "Separate Tabs" && active) {
 			// add the new blocks tab
 			items=CCArray::create();
@@ -52,7 +53,7 @@
 			for (int i = 2808; i <= 2837; i++) {
 				ADD_OBJ(i, STABLE);
 			}
-			auto newBlocksTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+			alpha::editor_tabs::EditorTab* newBlocksTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 			spr = CCSprite::create("NewBlockLabel.png"_spr);
 			spr->setScale(0.6f);
 			buildMode->createTab("newBlocks"_spr,newBlocksTab,spr);
@@ -96,7 +97,7 @@
 				ADD_OBJ(311, STABLE);
 				ADD_OBJ(315, STABLE);
 				ADD_OBJ(317, STABLE);
-				auto newSlopesTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+				alpha::editor_tabs::EditorTab* newSlopesTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 				spr = CCSprite::create("SlopeLabel.png"_spr);
 				spr->setScale(0.6f);
 				buildMode->createTab("newSlopes"_spr,newSlopesTab,spr);
@@ -120,7 +121,7 @@
 			ADD_OBJ(1568, NON_REPLICABLE);
 			ADD_OBJ(1569, NON_REPLICABLE);
 
-			auto new3DTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+			alpha::editor_tabs::EditorTab* new3DTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 			spr = CCSprite::create("3DLabel.png"_spr);
 			spr->setScale(0.6f);
 			buildMode->createTab("new3D"_spr,new3DTab,spr);
@@ -165,7 +166,7 @@
 				ADD_OBJ(397, STABLE);
 				ADD_OBJ(398, STABLE);
 				ADD_OBJ(399, STABLE);
-				auto newSpikesTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+				alpha::editor_tabs::EditorTab* newSpikesTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 				spr = CCSprite::create("SpikeLabel.png"_spr);
 				spr->setScale(0.6f);
 				buildMode->createTab("newSpikes"_spr,newSpikesTab,spr);
@@ -184,7 +185,7 @@
 					ADD_OBJ(i, UNSTABLE);
 					geode::log::info("i={}", i);
 				}
-				auto newPixelsTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+				alpha::editor_tabs::EditorTab* newPixelsTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 				spr = CCSprite::create("PixelLabel.png"_spr);
 				spr->setScale(0.6f);
 				buildMode->createTab("newPixels"_spr,newPixelsTab,spr);
@@ -202,7 +203,7 @@
 				ADD_OBJ(464, STABLE);
 				ADD_OBJ(465, STABLE);
 				ADD_OBJ(466, STABLE);
-				auto newDecoTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+				alpha::editor_tabs::EditorTab* newDecoTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 				spr = CCSprite::create("BushLabel.png"_spr);
 				spr->setScale(0.6f);
 				buildMode->createTab("newDeco"_spr,newDecoTab,spr);
@@ -217,7 +218,7 @@
 			// other weird block (looks like it uses a weird mishmash of textures)
 			ADD_OBJ(3800, NON_REPLICABLE);
 			
-			auto unusualObjectTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+			alpha::editor_tabs::EditorTab* unusualObjectTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 			spr = CCSprite::create("StartPosLabel.png"_spr);
 			spr->setScale(0.6f);
 			buildMode->createTab("unusualObjects"_spr,unusualObjectTab,spr);
@@ -237,7 +238,7 @@
 			ADD_OBJ(1931, STABLE);
 			// State block with no number?
 			ADD_OBJ(3655, STABLE);
-			auto newTriggersTab = alpha::editor_tabs::EditorTab::create(items,0,true);
+			alpha::editor_tabs::EditorTab* newTriggersTab = alpha::editor_tabs::EditorTab::create(items,0,true);
 			spr = CCSprite::create("TriggerLabel.png"_spr);
 			spr->setScale(0.6f);
 			buildMode->createTab("newTriggers"_spr,newTriggersTab,spr);
@@ -405,10 +406,64 @@
 			// other weird block (looks like it uses a weird mishmash of textures)
 			ADD_OBJ(3800, NON_REPLICABLE);
 
-			auto allUnlistedObjs = alpha::editor_tabs::EditorTab::create(items,0,true);
+			alpha::editor_tabs::EditorTab* allUnlistedObjs = alpha::editor_tabs::EditorTab::create(items,0,true);
 			spr = CCSprite::create("StartPosLabel.png"_spr);
 			spr->setScale(0.6f);
 			buildMode->createTab("allUnlistedObjs"_spr,allUnlistedObjs,spr);
 		}
+		
+		/*if (separateTab == "Normal Tabs" && active) {
+			//NEW PLAN
+			std::vector<std::shared_ptr<alpha::editor_tabs::Tab>> tabs = alpha::editor_tabs::getAllTabs();
+			for (std::shared_ptr<alpha::editor_tabs::Tab> t: tabs) {
+				geode::ZStringView id=t->getID();
+				if (id.contains("block-tab-bar")) {
+					items=CCArray::create();
+					
+					// old half-slab, replaced with colorable one
+					ADD_OBJ(40, NON_REPLICABLE);
+					ADD_OBJ(369, STABLE);
+					ADD_OBJ(370, STABLE);
+					// old quarter-blocks, replaced with colorable one
+					ADD_OBJ(195, NON_REPLICABLE);
+					ADD_OBJ(196, NON_REPLICABLE);
+					// old grey stripes going in,
+					// replaced with version without outlines
+					ADD_OBJ(160, STABLE);
+					ADD_OBJ(161, STABLE);
+					ADD_OBJ(162, STABLE);
+					ADD_OBJ(163, STABLE);
+					ADD_OBJ(164, STABLE);
+					ADD_OBJ(165, STABLE);
+					ADD_OBJ(166, STABLE);
+					ADD_OBJ(167, STABLE);
+					ADD_OBJ(168, STABLE);
+					ADD_OBJ(169, STABLE);
+					ADD_OBJ(193, STABLE);
+					ADD_OBJ(737, STABLE);
+					// old colored grid blocks, unknown why replaced
+					ADD_OBJ(247, STABLE);
+					ADD_OBJ(248, STABLE);
+					ADD_OBJ(249, STABLE);
+					ADD_OBJ(250, STABLE);
+					ADD_OBJ(251, STABLE);
+					ADD_OBJ(252, STABLE);
+					ADD_OBJ(253, STABLE);
+					ADD_OBJ(254, STABLE);
+					// unique variation of existing blocks, placed by Build Helper
+					for (int i = 2808; i <= 2837; i++) {
+						ADD_OBJ(i, STABLE);
+					}
+					// solid startPos
+					ADD_OBJ(34, NON_REPLICABLE);
+					// other weird block (looks like it uses a weird mishmash of textures)
+					ADD_OBJ(3800, NON_REPLICABLE);
+					
+					for (int i=0;i<items->count();i++) {
+						t->getNode()->ad(items->objectAtIndex(i));
+					}
+				}
+			}
+		}*/
 		return true;
 	}

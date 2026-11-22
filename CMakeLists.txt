@@ -13,7 +13,7 @@ project(UnlistedObjectsinEditor VERSION 1.4.3)
 # Set up the mod binary
 add_library(${PROJECT_NAME} SHARED
     "src/main.cpp"
-    "src/hooks/EditButtonBarUnlistedObjs.cpp"
+    #"src/hooks/EditButtonBarUnlistedObjs.cpp"
     "src/hooks/UnlistedObjectsUI.cpp"
     # Add your cpp files here
   )

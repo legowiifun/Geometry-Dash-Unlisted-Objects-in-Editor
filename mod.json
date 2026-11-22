@@ -31,8 +31,8 @@
 			"description": "Chooses where to add the objects.",
 			"type": "string",
 			"enable-if": "activate",
-			"default": "Normal Tabs",
-			"one-of": [ "Normal Tabs", "Separate Tabs", "Single Tab" ]
+			"default": "Separate Tabs",
+			"one-of": [ "Separate Tabs", "Single Tab" ]
 		}
 	},
 	"resources": {

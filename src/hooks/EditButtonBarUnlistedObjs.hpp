@@ -5,6 +5,7 @@
 
 #include "../main.hpp"
 #include "UnlistedObjectUI.hpp"
+#include <alphalaneous.editortab_api/API.hpp>
 
 using namespace geode::prelude;
 

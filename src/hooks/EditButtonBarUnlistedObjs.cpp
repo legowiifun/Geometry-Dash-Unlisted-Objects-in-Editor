@@ -1,6 +1,8 @@
 #include "EditButtonBarUnlistedObjs.hpp"
 
-void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int columns, bool keepPage) {\
+void EditButtonBarUnlistedObjs::loadFromItems(CCArray* items, int rows, int columns, bool keepPage) {
+	alpha::editor_tabs::Mode* build = alpha::editor_tabs::getMode(alpha::editor_tabs::Build);
+	
 	// check settings
 	std::string separateTab = Mod::get()->template getSettingValue<std::string>("separateTab");
 	bool active = Mod::get()->template getSettingValue<bool>("activate");
