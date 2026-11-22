@@ -3,7 +3,7 @@
 #include <Geode/modify/EditorUI.hpp>
 #include <Geode/loader/Loader.hpp>
 
-#include <alphalaneous.editortab_api/include/EditorTabAPI.hpp>
+#include <alphalaneous.editortab_api/API.hpp>
 #include "../main.hpp"
 
 using namespace geode::prelude;
